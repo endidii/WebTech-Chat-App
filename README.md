@@ -1,4 +1,6 @@
 # WebTech-Chat-App
+**Andy Thieu (582033), Übungsgruppe: Mi 15:30 - 17:00 (Möllers)**
+
 - jeder Benutzer setzt sich einen eigenen Benutzernamen
 
 - _Textkanäle_ erstellen bzw. beitreten, falls vorhanden
