@@ -13,3 +13,4 @@
 
 - Nachrichten werden durch Aktualisierung geladen
 - Nachrichten sollen bearbeitbar und löschbar sein
+- Liste der beigetretenen Nutzer eines Textkanals an der rechten Seite
