@@ -17,7 +17,7 @@ public class ChatAppController {
     private final MessageService messageService;
     private final UserService userService;
 
-    @PostMapping("/api/message")
+    @PostMapping("/messages")
     public Message createMessage(@RequestParam String username, @RequestParam String content){
         // Find the user by username or create a new one
         User user = userService.getUserByUsername(username);
@@ -33,7 +33,16 @@ public class ChatAppController {
         return messageService.createMessage(message);
     }
 
-    @GetMapping("/api/message")
+    @PostMapping("/users")
+    public User createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password){
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(password);
+        return userService.createUser(user);
+    }
+
+    @GetMapping("/messages")
     public List<Message> findAll(@RequestParam(required = false)String content){
         if(content != null){
             return messageService.searchByContent(content);
@@ -41,7 +50,7 @@ public class ChatAppController {
         return messageService.getAllMessages();
     }
 
-    @GetMapping("/api/message/by-user/{username}")
+    @GetMapping("/messages/{username}")
     public List<Message> getMessagesByUsername(@PathVariable String username) {
         return messageService.getMessagesByUser_Username(username);
     }
