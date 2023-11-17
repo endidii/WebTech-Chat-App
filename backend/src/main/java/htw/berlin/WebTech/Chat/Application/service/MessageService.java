@@ -18,8 +18,7 @@ public class MessageService {
 
     public Message createMessage(Message message){
         message.setId(UUID.randomUUID().toString().substring(0,5));
-        messageRepository.save(message);
-        return message;
+        return messageRepository.save(message);
     }
 
     public List<Message> getAllMessages(){
@@ -31,7 +30,7 @@ public class MessageService {
     }
 
     public List<Message> getMessagesByUser_Username(String username) {
-        return messageRepository.findByUser_Username(username);
+        return messageRepository.findBySender_Username(username);
     }
 
 }

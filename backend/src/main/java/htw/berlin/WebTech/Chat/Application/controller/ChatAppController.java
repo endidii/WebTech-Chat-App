@@ -3,6 +3,7 @@ package htw.berlin.WebTech.Chat.Application.controller;
 import htw.berlin.WebTech.Chat.Application.model.Message;
 import htw.berlin.WebTech.Chat.Application.model.User;
 import htw.berlin.WebTech.Chat.Application.service.MessageService;
+import htw.berlin.WebTech.Chat.Application.service.TextchannelService;
 import htw.berlin.WebTech.Chat.Application.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ public class ChatAppController {
 
     private final MessageService messageService;
     private final UserService userService;
+    private final TextchannelService textchannelService;
 
     @PostMapping("/messages")
     public Message createMessage(@RequestParam String username, @RequestParam String content){
@@ -28,7 +30,7 @@ public class ChatAppController {
         }
         // Create and save the new message
         Message message = new Message();
-        message.setUser(user);
+        message.setSender(user);
         message.setContent(content);
         return messageService.createMessage(message);
     }

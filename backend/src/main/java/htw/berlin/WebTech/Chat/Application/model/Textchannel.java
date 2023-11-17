@@ -7,16 +7,15 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "textchannel")
+public class Textchannel {
     @Id
     private String id;
-    @Column(nullable = false)
-    private String username;
-    //@Column(nullable = false)
-    private String email;
-    //@Column(nullable = false)
-    private String password;
+    private String name;
+    private String description;
+
+    @ManyToMany
+    private List<User> users;
 
     @OneToMany
     private List<Message> messages;

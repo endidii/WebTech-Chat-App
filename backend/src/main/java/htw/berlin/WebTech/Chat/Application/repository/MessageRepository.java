@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, String> {
     List<Message> findMessageByContentContaining(String content);
-    List<Message> findByUser_Username(@Param("username") String username);
+    List<Message> findBySender_Username(@Param("username") String username);
 }
