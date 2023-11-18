@@ -29,6 +29,7 @@ public class MessageService {
         message.setSender(user);
         message.setContent(content);
         message.setTextchannel(textchannel);
+        message.setDate(java.time.LocalDateTime.now().withNano(0));
         user.getMessages().add(message);
         return messageRepository.save(message);
     }

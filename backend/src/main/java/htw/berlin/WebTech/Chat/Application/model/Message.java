@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "messages")
@@ -11,6 +13,7 @@ public class Message {
     @Id
     private String id;
     private String content;
+    private LocalDateTime date;
 
     @ManyToOne
     @JsonBackReference
