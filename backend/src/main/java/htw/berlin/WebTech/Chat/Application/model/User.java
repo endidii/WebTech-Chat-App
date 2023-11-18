@@ -20,8 +20,10 @@ public class User {
     private String password;
 
     @OneToMany
+    @JsonManagedReference
     private List<Message> messages;
 
     @ManyToMany
+    @JsonManagedReference
     private List<Textchannel> textchannels;
 }

@@ -1,6 +1,7 @@
 package htw.berlin.WebTech.Chat.Application.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,8 +17,10 @@ public class Textchannel {
     private String description;
 
     @ManyToMany
+    @JsonBackReference
     private List<User> users;
 
     @OneToMany
+    @JsonManagedReference
     private List<Message> messages;
 }

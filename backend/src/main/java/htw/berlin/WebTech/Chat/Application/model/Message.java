@@ -1,10 +1,8 @@
 package htw.berlin.WebTech.Chat.Application.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.w3c.dom.Text;
-
-import java.nio.channels.Channel;
 
 @Data
 @Entity
@@ -15,8 +13,10 @@ public class Message {
     private String content;
 
     @ManyToOne
+    @JsonBackReference
     private Textchannel textchannel;
 
     @ManyToOne
+    @JsonBackReference
     private User sender;
 }
