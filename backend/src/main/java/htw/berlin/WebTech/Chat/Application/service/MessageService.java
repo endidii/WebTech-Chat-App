@@ -29,6 +29,7 @@ public class MessageService {
         message.setSender(user);
         message.setContent(content);
         message.setTextchannel(textchannel);
+        user.getMessages().add(message);
         return messageRepository.save(message);
     }
 
