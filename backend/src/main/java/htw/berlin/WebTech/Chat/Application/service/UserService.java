@@ -14,8 +14,12 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
 
-    public User createUser(User user){
+    public User createUser(String username, String email, String password){
+        User user = new User();
         user.setId(UUID.randomUUID().toString().substring(0,5));
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
         return userRepository.save(user);
     }
 

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TextchannelRepository extends JpaRepository<Textchannel, String> {
-
+    Textchannel findTextchannelById(String id);
 }

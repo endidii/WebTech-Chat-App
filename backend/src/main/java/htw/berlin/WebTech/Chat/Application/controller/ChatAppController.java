@@ -1,6 +1,7 @@
 package htw.berlin.WebTech.Chat.Application.controller;
 
 import htw.berlin.WebTech.Chat.Application.model.Message;
+import htw.berlin.WebTech.Chat.Application.model.Textchannel;
 import htw.berlin.WebTech.Chat.Application.model.User;
 import htw.berlin.WebTech.Chat.Application.service.MessageService;
 import htw.berlin.WebTech.Chat.Application.service.TextchannelService;
@@ -19,42 +20,49 @@ public class ChatAppController {
     private final UserService userService;
     private final TextchannelService textchannelService;
 
-    @PostMapping("/messages")
-    public Message createMessage(@RequestParam String username, @RequestParam String content){
-        // Find the user by username or create a new one
-        User user = userService.getUserByUsername(username);
-        if (user == null) {
-            user = new User();
-            user.setUsername(username);
-            userService.createUser(user);
-        }
-        // Create and save the new message
-        Message message = new Message();
-        message.setSender(user);
-        message.setContent(content);
-        return messageService.createMessage(message);
-    }
-
+    //create new user
     @PostMapping("/users")
     public User createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password){
-        User user = new User();
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(password);
-        return userService.createUser(user);
+        return userService.createUser(username, email, password);
+    }
+    //get user by username
+    @GetMapping("/users/{username}")
+    public User getUserById(@PathVariable("username") String username){
+        return userService.getUserByUsername(username);
     }
 
-    @GetMapping("/messages")
-    public List<Message> findAll(@RequestParam(required = false)String content){
-        if(content != null){
-            return messageService.searchByContent(content);
-        }
-        return messageService.getAllMessages();
+    //create new channel
+    @PostMapping("/channels")
+    public Textchannel createTextchannel(@RequestParam String name, @RequestParam String description){
+        return textchannelService.createTextchannel(name, description);
     }
 
-    @GetMapping("/messages/{username}")
-    public List<Message> getMessagesByUsername(@PathVariable String username) {
-        return messageService.getMessagesByUser_Username(username);
+    //add new user to channel
+    @PostMapping("/channels/{channelId}/users")
+    public void addUserToChannel(@PathVariable("channelId") String channelId, @RequestParam String userId){
+        textchannelService.addUserToTextchannel(userId, channelId);
+    }
+
+    //add message to channel
+    @PostMapping("/channels/{channelId}/users/{userId}/messages")
+    public void addMessageToChannel(@PathVariable("channelId") String channelId,
+                                    @PathVariable("userId") String userId,
+                                    @RequestParam String content){
+        Message message = messageService.createMessage(userId,channelId,content);
+        textchannelService.addMessageToTextchannel(message, channelId);
+    }
+
+    //get messages by channelId and userId
+    @GetMapping("/channels/{channelId}/users/{userId}/messages")
+    public List<Message> getMessagesByChannelIdAndUserId(@PathVariable("channelId") String channelId,
+                                                         @PathVariable("userId") String userId) {
+        return messageService.getMessagesByTextchannelAndUser(channelId, userId);
+    }
+
+    //get all messages from a channel
+    @GetMapping("/channels/{channelId}/messages")
+    public List<Message> getMessagesByChannelId(@PathVariable("channelId") String channelId){
+        return messageService.getMessagesByTextchannel(channelId);
     }
 
     @GetMapping("/")

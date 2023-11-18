@@ -1,5 +1,6 @@
 package htw.berlin.WebTech.Chat.Application.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,4 +21,7 @@ public class User {
 
     @OneToMany
     private List<Message> messages;
+
+    @ManyToMany
+    private List<Textchannel> textchannels;
 }
