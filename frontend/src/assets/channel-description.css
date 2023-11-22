@@ -1,0 +1,38 @@
+.channel-description{
+    width: 1860px;
+    height: 130px;
+    background-color: #141419;
+    position: fixed;
+    top: 0;
+    left: 400px;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-width: 2px;
+    border-color: #222429;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.channel-name{
+    font-weight: bold;
+    font-size: 50px;
+    color: white;
+    margin-left: 50px;
+}
+.leave-button img {
+    height: 40px;
+    margin: 10px 6px 10px 20px;
+}
+.leave-button span {
+    color: white;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    margin-left: 12px;
+}
+.leave-button{
+    display: flex;
+    margin-right: 30px;
+    border-radius: 8px;
+    background-color: #E3505E;
+    align-items: center;
+}
