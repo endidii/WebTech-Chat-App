@@ -1,0 +1,27 @@
+.logo_img{
+    height: 80px;
+    margin-right: 20px;
+}
+#underscore{
+    color: #006EDB;
+    font-size: 55px;
+}
+.app-name{
+    color: white;
+    font-weight: bold;
+    font-size: 40px;
+}
+.logo-div{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.sidebar-div{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #141419;
+    width: 400px;
+}

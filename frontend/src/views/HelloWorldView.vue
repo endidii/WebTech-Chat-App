@@ -1,30 +1,27 @@
 <script setup lang="ts">
+import "../assets/memberlist.css"
+import "../assets/sidebar.css"
 </script>
 
 <template>
-  <div class="logo-div">
-    <img src="src/assets/chat.png" class="logo_img">
-    <p class="app-name">ChatTalk</p>
+  <div class="sidebar-div">
+    <div class="logo-div">
+      <img src="src/assets/chat.png" class="logo_img">
+      <p class="app-name">blendr<span id="underscore">_</span></p>
+    </div>
+  </div>
+
+  <div class="memberlist-div">
+    <p id="memberlist-tag">Mitgliederliste</p>
+    <div class="member">
+      <img class="user-img" src="../assets/cat1.jpeg" alt="">
+      <p class="username">Andy Thieu</p>
+    </div>
   </div>
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-.logo_img{
-  height: 100px;
-  margin-right: 10px;
-}
 body{
-  background-color: white;
-}
-.app-name{
-  color: black;
-  font-family: "Roboto", sans-serif;
-  font-weight: bold;
-  font-size: 40px;
-}
-.logo-div{
-  display: flex;
-  align-items: center;
+  background-color: #222429;
 }
 </style>
