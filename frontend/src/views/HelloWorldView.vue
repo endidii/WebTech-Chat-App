@@ -5,47 +5,46 @@ import "../assets/channel-description.css"
 </script>
 
 <template>
-
     <div class="sidebar-div">
       <div class="logo-div">
         <img src="src/assets/chat.png" class="logo_img" alt="logo-img">
         <p class="app-name">blendr<span id="underscore">_</span></p>
       </div>
       <input type="text" class="search-bar" placeholder="Suchen">
-      <p class="side-tags">Textkanäle</p>
-      <div class="channel-div">
-        <button class="channel-button"><span class="chat-tag"># web-tech</span></button>
-      </div>
-      <div class="channel-div">
-        <button class="channel-button"><span class="chat-tag"># verteilte-anwendungen</span></button>
-      </div>
-      <div class="channel-div">
-        <button class="channel-button"><span class="chat-tag"># unternehmenssoftware</span></button>
-      </div>
-      <p class="side-tags">Direktnachrichten</p>
-      <div class="chat-div">
-        <img src="../assets/cat2.png" alt="cat-image">
-        <button class="channel-button"><span class="chat-tag">Tony Le (ereshkigal)</span></button>
-      </div>
-      <div class="chat-div">
-        <img src="../assets/image1.png" alt="image">
-        <button class="channel-button"><span class="chat-tag">Tony (2ny)</span></button>
-      </div>
-      <div class="chat-div">
-        <img src="../assets/image2.png" alt="image">
-        <button class="channel-button"><span class="chat-tag">Max</span></button>
-      </div>
 
-      <div class="join-div">
-        <button class="join-button">Textkanal hinzufügen</button>
-      </div>
+      <p class="side-tags">Textkanäle</p>
+
+        <button class="channel-button"><span class="chat-tag"># web-tech</span></button>
+
+        <button class="channel-button"><span class="chat-tag"># verteilte-anwendungen</span></button>
+
+        <button class="channel-button"><span class="chat-tag"># unternehmenssoftware</span></button>
+
+      <p class="side-tags">Direktnachrichten</p>
+
+      <button id="button1" class="chat-button">
+        <img class="user-img" src="../assets/cat2.png" alt="image">
+        <span class="username">Tony (ereshkigal)</span>
+      </button>
+
+      <button class="chat-button">
+        <img class="user-img" src="../assets/image1.png" alt="image">
+        <span class="username">Tony (2ny)</span>
+      </button>
+
+      <button class="chat-button">
+        <img class="user-img" src="../assets/image2.png" alt="image">
+        <span class="username">Max</span>
+      </button>
+
+      <button class="join-button">Textkanal hinzufügen</button>
     </div>
 
     <div class="channel-description">
       <p class="channel-name"># web-tech</p>
       <button class="leave-button">
         <span>verlassen</span>
-        <img src="../assets/leave-icon.png">
+        <img src="../assets/leave-icon.png" alt="leave">
       </button>
     </div>
 
@@ -55,8 +54,11 @@ import "../assets/channel-description.css"
         <img class="user-img" src="../assets/cat1.jpeg" alt="user-img">
         <p class="username">Andy Thieu</p>
       </div>
+      <div class="member">
+        <img class="user-img" src="../assets/cat1.jpeg" alt="user-img">
+        <p class="username">Tori</p>
+      </div>
     </div>
-
 
 </template>
 
@@ -65,5 +67,6 @@ import "../assets/channel-description.css"
 body{
   font-family: 'Poppins', sans-serif;
   background-color: #222429;
+  margin-bottom: 1000px;
 }
 </style>

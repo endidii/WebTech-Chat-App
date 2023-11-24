@@ -1,7 +1,7 @@
 .memberlist-div{
     background-color: #141419;
     position: fixed;
-    top: 0;
+    top: 130px;
     right: 0;
     bottom: 0;
     width: 300px;
@@ -21,7 +21,9 @@
 }
 .user-img{
     height: 40px;
-    border-radius: 20px;
+    width: 40px;
+    border-radius: 4px;
+    object-fit: cover;
 }
 .username{
     color: white;
