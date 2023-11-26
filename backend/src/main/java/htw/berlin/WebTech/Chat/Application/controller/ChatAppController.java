@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ChatAppController {
 
     private final MessageService messageService;
