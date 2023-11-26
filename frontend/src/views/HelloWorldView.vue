@@ -1,9 +1,3 @@
-<script lang="ts">
-import "../assets/memberlist.css"
-import "../assets/sidebar.css"
-import "../assets/channel-description.css"
-</script>
-
 <template>
     <div class="sidebar-div">
       <div class="logo-div">
@@ -62,7 +56,13 @@ import "../assets/channel-description.css"
 
 </template>
 
-<style>
+<script lang="ts">
+import "../assets/memberlist.css"
+import "../assets/sidebar.css"
+import "../assets/channel-description.css"
+</script>
+
+<style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap');
 body{
   font-family: 'Poppins', sans-serif;
