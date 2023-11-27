@@ -1,8 +1,10 @@
 package htw.berlin.WebTech.Chat.Application.controller;
 
+import htw.berlin.WebTech.Chat.Application.model.Directchannel;
 import htw.berlin.WebTech.Chat.Application.model.Message;
 import htw.berlin.WebTech.Chat.Application.model.Textchannel;
 import htw.berlin.WebTech.Chat.Application.model.User;
+import htw.berlin.WebTech.Chat.Application.service.DirectchannelService;
 import htw.berlin.WebTech.Chat.Application.service.MessageService;
 import htw.berlin.WebTech.Chat.Application.service.TextchannelService;
 import htw.berlin.WebTech.Chat.Application.service.UserService;
@@ -20,11 +22,17 @@ public class ChatAppController {
     private final MessageService messageService;
     private final UserService userService;
     private final TextchannelService textchannelService;
+    private final DirectchannelService directchannelService;
 
     //create new user
     @PostMapping("/users")
     public User createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password){
         return userService.createUser(username, email, password);
+    }
+    //create new direct channel
+    @PostMapping("/directchannels")
+    public Directchannel createDirectchannel(String userId1, String userId2){
+        return directchannelService.createDirectchannel(userId1, userId2);
     }
     //get user by username
     @GetMapping("/users/{username}")

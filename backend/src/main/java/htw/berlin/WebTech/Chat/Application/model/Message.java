@@ -1,6 +1,7 @@
 package htw.berlin.WebTech.Chat.Application.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import htw.berlin.WebTech.Chat.Application.service.DirectchannelService;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,4 +23,8 @@ public class Message {
     @ManyToOne
     @JsonBackReference
     private User sender;
+
+    @ManyToOne
+    @JsonBackReference
+    private Directchannel directchannel;
 }

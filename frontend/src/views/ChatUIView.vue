@@ -66,11 +66,11 @@
 </template>
 
 <script lang="ts">
-import "../assets/memberlist.css"
-import "../assets/sidebar.css"
-import "../assets/channel-description.css"
-import "../assets/input.css"
-import "../assets/logged-in.css"
+import "../styles/memberlist.css"
+import "../styles/sidebar.css"
+import "../styles/channel-description.css"
+import "../styles/input.css"
+import "../styles/logged-in.css"
 export default{
 
 }

@@ -14,9 +14,9 @@ public class User {
     private String id;
     @Column(nullable = false)
     private String username;
-    //@Column(nullable = false)
+    @Column(nullable = false)
     private String email;
-    //@Column(nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @OneToMany
@@ -26,4 +26,8 @@ public class User {
     @ManyToMany
     @JsonManagedReference
     private List<Textchannel> textchannels;
+
+    @ManyToMany
+    @JsonManagedReference
+    private List<Directchannel> directchannels;
 }

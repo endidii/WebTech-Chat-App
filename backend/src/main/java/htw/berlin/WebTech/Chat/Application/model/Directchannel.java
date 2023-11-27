@@ -1,0 +1,26 @@
+package htw.berlin.WebTech.Chat.Application.model;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import lombok.Data;
+
+import java.util.List;
+
+@Entity
+@Data
+public class Directchannel {
+    @Id
+    String id;
+
+    @ManyToMany
+    @JsonBackReference
+    List<User> users;
+
+    @OneToMany
+    @JsonManagedReference
+    private List<Message> messages;
+}
