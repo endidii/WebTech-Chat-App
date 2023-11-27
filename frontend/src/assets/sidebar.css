@@ -41,6 +41,16 @@
     font-size: 20px;
     padding-left: 50px;
 }
+#search-icon{
+    z-index: 100;
+    position: fixed;
+    height: 24px;
+    width: 24px;
+    border-radius: 4px;
+    object-fit: cover;
+    top: 146px;
+    left: 24px;
+}
 .side-tags{
     color: white;
     font-weight: bold;

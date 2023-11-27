@@ -1,0 +1,15 @@
+#message-input{
+    background-color: #141419;
+    border-width: 1px;
+    border-style: solid;
+    border-color: white;
+    position: fixed;
+    bottom: 20px;
+    right: 320px;
+    left: 320px;
+    height: 50px;
+    color: white;
+    font-size: 20px;
+    padding-left: 16px;
+    font-family: 'Poppins', sans-serif;
+}

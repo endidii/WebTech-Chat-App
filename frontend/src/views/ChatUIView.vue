@@ -4,7 +4,9 @@
         <img src="src/assets/chat.png" class="logo_img" alt="logo-img">
         <p class="app-name">blendr<span id="underscore">_</span></p>
       </div>
+      
       <input type="text" class="search-bar" placeholder="Suchen">
+      <img id="search-icon" src="../assets/search.png" alt="search-icon">
 
       <p class="side-tags">Textkanäle</p>
 
@@ -54,12 +56,24 @@
       </div>
     </div>
 
+  <input type="text" id="message-input" placeholder="Nachricht eingeben">
+
+  <div class="logged-in-div">
+    <img src="../assets/cat1.jpeg" alt="user-img">
+    <p>Angemeldet als: <br> Andy Thieu</p>
+  </div>
+
 </template>
 
 <script lang="ts">
 import "../assets/memberlist.css"
 import "../assets/sidebar.css"
 import "../assets/channel-description.css"
+import "../assets/input.css"
+import "../assets/logged-in.css"
+export default{
+
+}
 </script>
 
 <style scoped>

@@ -23,14 +23,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
-    }
-
-    public Optional<User> getUserById(String id) {
-        return userRepository.findById(id);
-    }
-
     public User getUserByUsername(String username){
         return userRepository.findByUsername(username);
     }
