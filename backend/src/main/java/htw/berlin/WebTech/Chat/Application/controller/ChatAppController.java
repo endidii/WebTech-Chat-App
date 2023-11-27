@@ -70,5 +70,11 @@ public class ChatAppController {
     public List<Textchannel> getChannelsByUserId(@PathVariable("userId") String userId){
         return textchannelService.getAllTextchannelsByUserId(userId);
     }
+    //get users by channelId
+    @GetMapping("/channels/{channelId}/users")
+    public List<User> getUsersOfTextChannel(@PathVariable("channelId") String channelId){
+        return textchannelService.getUsersOfTextChannel(channelId);
+    }
+
 
 }

@@ -9,7 +9,7 @@ import htw.berlin.WebTech.Chat.Application.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +18,6 @@ import java.util.UUID;
 public class TextchannelService {
     private final TextchannelRepository textchannelRepository;
     private final UserRepository userRepository;
-    private final MessageRepository messageRepository;
 
     public Textchannel createTextchannel(String name, String description){
         Textchannel textchannel = new Textchannel();
@@ -45,6 +44,10 @@ public class TextchannelService {
 
     public List<Textchannel> getAllTextchannelsByUserId(String userId){
         return textchannelRepository.findTextchannelsByUsersId(userId);
+    }
+
+    public List<User> getUsersOfTextChannel(String textChannelId) {
+        return textchannelRepository.findUsersByChannelId(textChannelId);
     }
 
 }
