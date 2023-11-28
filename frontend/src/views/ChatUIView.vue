@@ -58,7 +58,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import '../styles/memberlist.css'
 import '../styles/sidebar.css'
 import '../styles/channel-description.css'
@@ -67,10 +67,6 @@ import '../styles/logged-in.css'
 import '../components/Textchannel-button.vue'
 import TextchannelButton from '@/components/Textchannel-button.vue'
 import member from '@/components/Memberlist-member.vue'
-
-export default {
-  components: { TextchannelButton, member }
-}
 </script>
 
 <style scoped>
@@ -80,13 +76,4 @@ body {
   background-color: #222429;
   margin-bottom: 1000px;
 }
-.join-button:hover{
-  background-color: red;
-  cursor: pointer;
-}
-.direct-chat-button:hover{
-  background-color: red;
-  cursor: pointer;
-}
-
 </style>

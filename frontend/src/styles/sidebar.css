@@ -111,3 +111,11 @@
     left: 14px;
     width: 270px;
 }
+.join-button:hover{
+    background-color: red;
+    cursor: pointer;
+}
+.direct-chat-button:hover{
+    background-color: red;
+    cursor: pointer;
+}
