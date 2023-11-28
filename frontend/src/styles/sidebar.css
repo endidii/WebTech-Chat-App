@@ -40,6 +40,7 @@
     color: white;
     font-size: 20px;
     padding-left: 50px;
+    font-family: 'Poppins', sans-serif;
 }
 #search-icon{
     z-index: 100;
@@ -95,6 +96,18 @@
     padding: 10px 10px 10px 10px;
     position: fixed;
     bottom: 18px;
+    left: 14px;
+    width: 270px;
+}
+.direct-chat-button{
+    background-color: #006EDB;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 20px;
+    padding: 10px 10px 10px 10px;
+    position: fixed;
+    bottom: 80px;
     left: 14px;
     width: 270px;
 }
