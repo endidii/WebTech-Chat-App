@@ -1,5 +1,5 @@
 <template>
-<div class="sign-up-div">
+<form class="sign-up-div">
 <p id="register-p">Registrieren</p>
 
 <div class="name-mail-div">
@@ -16,10 +16,17 @@
 
 <div class="password-div">
   <p>Passwort</p>
-  <input v-model="password" type="text" class="user-input" id="password-input">
+  <input v-model="password" type="password" class="user-input" id="password-input">
 </div>
-<button class="register-button" @click="onClick">Registrieren</button>
+<router-link to="chat"><button class="register-button" @click="onClick">Registrieren</button></router-link>
+
+
+<div class="bereits-user-div">
+  <p>Bereits ein User?</p>
+  <a href="">Einloggen</a>
 </div>
+
+</form>
 </template>
 
 <script setup lang="ts">
@@ -47,15 +54,6 @@ function onClick(){
 .input-div{
   width: 100%;
 }
-#name-input{
-  width: 100%;
-}
-#email-input{
-  width: 100%;
-}
-#password-input{
-  width: 100%;
-}
 .register-button{
   width: 100%;
   margin-top: 20px;
@@ -64,14 +62,17 @@ function onClick(){
   border: none;
   color: white;
   height: 45px;
+  cursor: pointer;
 }
 .user-input{
+  font-family: 'Poppins', sans-serif;
   border-style: solid;
   border-width: 2px;
   border-color: black;
   height: 40px;
   font-size: 20px;
   padding-left: 10px;
+  width: 100%;
 }
 #register-p{
   font-size: 30px;
@@ -79,7 +80,6 @@ function onClick(){
 .name-mail-div{
   display: flex;
   column-gap: 20px;
-
 }
 .sign-up-div{
   background-color: white;
@@ -87,5 +87,10 @@ function onClick(){
   padding: 20px;
   display: flex;
   flex-direction: column;
+}
+.bereits-user-div{
+  display: flex;
+  column-gap: 20px;
+  margin-top: 10px;
 }
 </style>

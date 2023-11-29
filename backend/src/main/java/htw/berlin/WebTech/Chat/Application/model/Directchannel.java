@@ -17,10 +17,8 @@ public class Directchannel {
     String id;
 
     @ManyToMany
-    @JsonBackReference
     List<User> users;
 
     @OneToMany
-    @JsonManagedReference
     private List<Message> messages;
 }

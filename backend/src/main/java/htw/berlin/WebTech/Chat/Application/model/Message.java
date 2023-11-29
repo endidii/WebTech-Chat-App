@@ -17,14 +17,11 @@ public class Message {
     private LocalDateTime date;
 
     @ManyToOne
-    @JsonBackReference
     private Textchannel textchannel;
 
     @ManyToOne
-    @JsonBackReference
     private User sender;
 
     @ManyToOne
-    @JsonBackReference
     private Directchannel directchannel;
 }

@@ -9,8 +9,10 @@ import htw.berlin.WebTech.Chat.Application.service.MessageService;
 import htw.berlin.WebTech.Chat.Application.service.TextchannelService;
 import htw.berlin.WebTech.Chat.Application.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -26,8 +28,8 @@ public class ChatAppController {
 
     //create new user
     @PostMapping("/users")
-    public User createUser(@RequestParam String username, @RequestParam String email, @RequestParam String password){
-        return userService.createUser(username, email, password);
+    public User createUser(@RequestBody User user){
+        return userService.createUser(user.getUsername(), user.getEmail(), user.getPassword());
     }
     //create new direct channel
     @PostMapping("/directchannels")

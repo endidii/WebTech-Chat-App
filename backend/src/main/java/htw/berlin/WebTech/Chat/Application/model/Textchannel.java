@@ -17,10 +17,8 @@ public class Textchannel {
     private String description;
 
     @ManyToMany
-    @JsonBackReference
     private List<User> users;
 
     @OneToMany
-    @JsonManagedReference
     private List<Message> messages;
 }
