@@ -16,7 +16,7 @@ export default {
   },
   mounted() {
     axios
-      .get('http://localhost:8080/channels/4aa19/users')
+      .get('http://localhost:8080/channels/abca7/users')
       .then((response) => {
         this.users = response.data
       })
