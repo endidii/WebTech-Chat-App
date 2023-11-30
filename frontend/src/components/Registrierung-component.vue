@@ -68,9 +68,10 @@ function onClick(){
   font-family: 'Poppins', sans-serif;
   border-style: solid;
   border-width: 2px;
+  border-radius: 6px;
   border-color: black;
   height: 40px;
-  font-size: 20px;
+  font-size: 17px;
   padding-left: 10px;
   width: 100%;
 }
@@ -87,6 +88,7 @@ function onClick(){
   padding: 20px;
   display: flex;
   flex-direction: column;
+  width: 600px;
 }
 .bereits-user-div{
   display: flex;
