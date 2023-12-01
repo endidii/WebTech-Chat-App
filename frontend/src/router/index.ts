@@ -6,7 +6,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: 'https://blendr-five.vercel.app',
+      path: '/',
       name: 'home',
       component: HomeView
     },
