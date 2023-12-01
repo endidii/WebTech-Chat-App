@@ -1,7 +1,7 @@
 <template>
   <div class="page-div">
     <div class="logo-div-register">
-      <img src="src/assets/chat.png" class="logo_img" alt="logo-img" />
+      <img src="/src/assets/chat.png" class="logo_img" alt="logo-img" />
       <p class="blendr-name">blendr<span id="underscore">_</span></p>
     </div>
 
