@@ -86,5 +86,8 @@ public class ChatAppController {
         return textchannelService.getUsersOfTextChannel(channelId);
     }
 
-
+    @GetMapping("/")
+    public String getHello(){
+        return "Hello World";
+    }
 }
