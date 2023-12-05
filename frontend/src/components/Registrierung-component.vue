@@ -42,7 +42,7 @@ function onClick(){
 
   console.log("registered: ")
   axios
-    .post("https://blendr-kappa.vercel.app/users", {username: username.value, email: email.value, password: password.value })
+    .post("http://localhost:8080/users", {username: username.value, email: email.value, password: password.value })
     .then((response) => {
       console.log("user erstellt: " + response.data.id)
       emit("userAdded", response.data)
