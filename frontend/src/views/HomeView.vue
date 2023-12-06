@@ -53,4 +53,15 @@ body{
   font-weight: bold;
   font-size: 40px;
 }
+@media (max-width: 1000px) {
+  .page-div{
+    flex-direction: column;
+    align-items: center;
+    column-gap: 20px;
+  }
+  .logo-div-register{
+    margin-bottom: 30px;
+    padding-left: 70px;
+  }
+}
 </style>

@@ -16,7 +16,7 @@
     margin-left: 50px;
 }
 .leave-button img {
-    height: 40px;
+    height: 28px;
     margin: 10px 6px 10px 20px;
 }
 .leave-button span {
@@ -32,4 +32,10 @@
     background-color: #E3505E;
     align-items: center;
     border: none;
+}
+.leave-button:hover{
+    cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;
 }

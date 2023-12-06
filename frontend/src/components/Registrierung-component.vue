@@ -39,7 +39,6 @@ const password = ref("")
 const emit = defineEmits(["userAdded"])
 
 function onClick(){
-
   console.log("registered: ")
   axios
     .post("http://localhost:8080/users", {username: username.value, email: email.value, password: password.value })
@@ -57,18 +56,20 @@ function onClick(){
 .register-button{
   width: 100%;
   margin-top: 20px;
+  margin-bottom: 10px;
   font-family: 'Poppins', sans-serif;
   background-color: #006EDB;
   border: none;
   color: white;
   height: 45px;
   cursor: pointer;
+  border-radius: 4px;
 }
 .user-input{
   font-family: 'Poppins', sans-serif;
   border-style: solid;
   border-width: 2px;
-  border-radius: 6px;
+  border-radius: 4px;
   border-color: black;
   height: 40px;
   font-size: 17px;
@@ -89,6 +90,7 @@ function onClick(){
   display: flex;
   flex-direction: column;
   width: 600px;
+  border-radius: 8px;
 }
 .bereits-user-div{
   display: flex;

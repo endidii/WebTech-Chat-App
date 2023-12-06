@@ -90,32 +90,38 @@
 .join-button{
     background-color: #006EDB;
     border: none;
+    border-radius: 2px;
     font-family: 'Poppins', sans-serif;
     color: white;
     font-size: 20px;
     padding: 10px 10px 10px 10px;
     position: fixed;
-    bottom: 18px;
+    bottom: 24px;
     left: 14px;
     width: 270px;
 }
 .direct-chat-button{
     background-color: #006EDB;
     border: none;
+    border-radius: 2px;
     font-family: 'Poppins', sans-serif;
     color: white;
     font-size: 20px;
     padding: 10px 10px 10px 10px;
     position: fixed;
-    bottom: 80px;
+    bottom: 90px;
     left: 14px;
     width: 270px;
 }
 .join-button:hover{
-    background-color: red;
+    border-color: white;
+    border-style: solid;
+    border-width: 2px;
     cursor: pointer;
 }
 .direct-chat-button:hover{
-    background-color: red;
+    border-color: white;
+    border-style: solid;
+    border-width: 2px;
     cursor: pointer;
 }

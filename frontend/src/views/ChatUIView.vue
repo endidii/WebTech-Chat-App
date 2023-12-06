@@ -76,4 +76,18 @@ body {
   background-color: #222429;
   margin-bottom: 1000px;
 }
+@media (max-width: 1000px) {
+  .memberlist-div {
+    display: none;
+  }
+  .channel-description {
+    right: 0;
+  }
+  .logged-in-div {
+    display: none;
+  }
+  #message-input{
+    right: 20px;
+  }
+}
 </style>
