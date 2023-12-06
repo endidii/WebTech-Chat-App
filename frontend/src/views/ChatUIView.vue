@@ -29,6 +29,16 @@
       <span class="username">Max</span>
     </button>
 
+    <button class="chat-button">
+      <img class="user-img" src="../assets/picture2.png" alt="image" />
+      <span class="username">Minh Nguyet</span>
+    </button>
+
+    <button class="chat-button">
+      <img class="user-img" src="../assets/picture1.jpeg" alt="image" />
+      <span class="username">Phuc</span>
+    </button>
+
     <button class="join-button">Textkanal hinzufügen</button>
 
     <button class="direct-chat-button">Neue Direktnachricht</button>
