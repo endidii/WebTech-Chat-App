@@ -49,8 +49,8 @@ public class ChatAppController {
     }
 
     //add new user to channel
-    @PostMapping("/channels/{channelId}/users")
-    public void addUserToChannel(@PathVariable("channelId") String channelId, @RequestParam String userId){
+    @PostMapping("/channels/{channelId}/users/{userId}")
+    public void addUserToChannel(@PathVariable("channelId") String channelId, @PathVariable("userId") String userId){
         textchannelService.addUserToTextchannel(userId, channelId);
     }
 

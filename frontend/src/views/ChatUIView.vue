@@ -63,7 +63,7 @@
     <img src="../assets/cat1.jpeg" alt="user-img" />
     <p>
       Angemeldet als: <br />
-      Andy Thieu
+      ID: {{userId}}
     </p>
   </div>
 </template>
@@ -77,6 +77,18 @@ import '../styles/logged-in.css'
 import '../components/Textchannel-button.vue'
 import TextchannelButton from '@/components/Textchannel-button.vue'
 import member from '@/components/Memberlist-member.vue'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router';
+import axios from 'axios';
+
+const userId = ref('')
+const username = ref('')
+const email = ref('')
+const route = useRoute();
+
+onMounted(() => {
+  userId.value = route.params.userId as string;
+})
 </script>
 
 <style scoped>
@@ -96,7 +108,7 @@ body {
   .logged-in-div {
     display: none;
   }
-  #message-input{
+  #message-input {
     right: 20px;
   }
 }

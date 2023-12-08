@@ -18,8 +18,8 @@
   <p>Passwort</p>
   <input v-model="password" type="password" class="user-input" id="password-input">
 </div>
-<router-link to="chat"><button class="register-button" @click="onClick">Registrieren</button></router-link>
 
+<button type="button" class="register-button" @click="onClick">Registrieren</button>
 
 <div class="bereits-user-div">
   <p>Bereits ein User?</p>
@@ -32,6 +32,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import axios from 'axios';
+import router from "@/router";
 
 const username = ref("")
 const email = ref("")
@@ -41,9 +42,14 @@ const emit = defineEmits(["userAdded"])
 function onClick(){
   console.log("registered: ")
   axios
-    .post("http://localhost:8080/users", {username: username.value, email: email.value, password: password.value })
+    .post("http://localhost:8080/users", {
+      username: username.value,
+      email: email.value,
+      password: password.value
+    })
     .then((response) => {
       console.log("user erstellt: " + response.data.id)
+      router.push({ name: 'ChatUI', params: { userId: response.data.id, }})
       emit("userAdded", response.data)
     })
 }
