@@ -15,7 +15,7 @@ type Channel = {
 let channels: Ref<Channel[]> = ref([]);
 
 axios
-    .get('http://localhost:8080/users/0b816/channels')
+    .get('http://localhost:8080/users/59c4f/channels')
     .then((response) => {
       channels.value = response.data
     })
@@ -23,6 +23,7 @@ axios
 
 <style scoped>
 .channel-button:hover{
-  background-color: red;
+  background-color: #006EDB;
+  cursor: pointer;
 }
 </style>

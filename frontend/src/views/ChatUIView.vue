@@ -61,10 +61,11 @@
 
   <div class="logged-in-div">
     <img src="../assets/cat1.jpeg" alt="user-img" />
-    <p>
-      Angemeldet als: <br />
-      ID: {{userId}}
-    </p>
+    <div class="user-info-div">
+      <p id="angemeldet-als">Angemeldet als:</p>
+      <p v-if="user" id="username-p">{{ user.username }}</p>
+      <p v-if="user" id="userId-p">ID: {{ user.id }}</p>
+    </div>
   </div>
 </template>
 
@@ -82,12 +83,17 @@ import { useRoute } from 'vue-router';
 import axios from 'axios';
 
 const userId = ref('')
-const username = ref('')
-const email = ref('')
+const user = ref();
 const route = useRoute();
 
 onMounted(() => {
   userId.value = route.params.userId as string;
+  axios
+    .get("http://localhost:8080/users/" + userId.value)
+    .then((response) => {
+      console.log(response.data);
+      user.value = response.data;
+    })
 })
 </script>
 

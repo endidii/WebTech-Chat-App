@@ -40,7 +40,6 @@ const password = ref("")
 const emit = defineEmits(["userAdded"])
 
 function onClick(){
-  console.log("registered: ")
   axios
     .post("http://localhost:8080/users", {
       username: username.value,

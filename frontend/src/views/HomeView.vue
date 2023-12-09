@@ -5,7 +5,7 @@
       <p class="blendr-name">blendr<span id="underscore">_</span></p>
     </div>
 
-    <RegistrierungComponent @user-added="pushUser"></RegistrierungComponent>
+    <RegistrierungComponent></RegistrierungComponent>
 
   </div>
 </template>
@@ -13,24 +13,6 @@
 <script setup lang="ts">
 import "@/components/Registrierung-component.vue"
 import RegistrierungComponent from "@/components/Registrierung-component.vue";
-import { ref } from "vue";
-import router from "@/router";
-type User = {
-  id: string;
-  username: string;
-  email: string;
-}
-const userId = ref("");
-const username = ref("");
-const email = ref("");
-
-function pushUser(user: User){
-  userId.value = user.id;
-  username.value = user.username;
-  email.value = user.email;
-
-  router.push({ name: 'ChatUI', params: { userId: userId.value, username: username.value, email: email.value } })
-}
 </script>
 
 <style>

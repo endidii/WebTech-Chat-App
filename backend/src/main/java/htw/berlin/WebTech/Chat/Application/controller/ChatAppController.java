@@ -37,7 +37,7 @@ public class ChatAppController {
         return directchannelService.createDirectchannel(userId1, userId2);
     }
     //get user by username
-    @GetMapping("/users/{username}")
+    @GetMapping("/users/username/{username}")
     public User getUserById(@PathVariable("username") String username){
         return userService.getUserByUsername(username);
     }
@@ -84,6 +84,11 @@ public class ChatAppController {
     @GetMapping("/channels/{channelId}/users")
     public List<User> getUsersOfTextChannel(@PathVariable("channelId") String channelId){
         return textchannelService.getUsersOfTextChannel(channelId);
+    }
+    //get user by userID
+    @GetMapping("/users/{userId}")
+    public User getUsersById(@PathVariable("userId") String userId){
+        return userService.getUserById(userId);
     }
 
     @GetMapping("/")
