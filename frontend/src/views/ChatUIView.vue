@@ -5,7 +5,7 @@
       <p class="app-name">blendr<span id="underscore">_</span></p>
     </div>
 
-    <input type="text" class="search-bar" placeholder="Suchen" />
+    <input type="text" class="search-bar" placeholder="Textkanal Beitreten" />
     <img id="search-icon" src="../assets/search.png" alt="search-icon" />
 
     <p class="side-tags">Textkanäle</p>
@@ -39,9 +39,9 @@
       <span class="username">Phuc</span>
     </button>
 
-    <button class="join-button">Textkanal hinzufügen</button>
+    <AddDirectchannelButton></AddDirectchannelButton>
 
-    <button class="direct-chat-button">Neue Direktnachricht</button>
+    <AddChannelButton></AddChannelButton>
   </div>
 
   <div class="channel-description">
@@ -77,6 +77,8 @@ import '../styles/input.css'
 import '../styles/logged-in.css'
 import '../components/Textchannel-button.vue'
 import TextchannelButton from '@/components/Textchannel-button.vue'
+import AddChannelButton from '@/components/Add-Textchannel-button.vue'
+import AddDirectchannelButton from "@/components/Add-Directchannel-button.vue";
 import member from '@/components/Memberlist-member.vue'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router';

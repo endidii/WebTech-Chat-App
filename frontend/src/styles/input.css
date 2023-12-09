@@ -6,6 +6,7 @@
     position: fixed;
     bottom: 20px;
     right: 320px;
+    width: calc(100% - 644px);
     left: 320px;
     height: 50px;
     color: white;
