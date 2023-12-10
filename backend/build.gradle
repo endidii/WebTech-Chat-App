@@ -23,6 +23,8 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql:42.6.0'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//for hashing passwords
+	implementation 'org.springframework.security:spring-security-crypto:5.6.3'
 }
 
 tasks.named('test') {

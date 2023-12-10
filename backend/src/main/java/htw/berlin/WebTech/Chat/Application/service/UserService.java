@@ -3,10 +3,8 @@ package htw.berlin.WebTech.Chat.Application.service;
 import htw.berlin.WebTech.Chat.Application.model.User;
 import htw.berlin.WebTech.Chat.Application.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,7 +16,10 @@ public class UserService {
         User user = new User();
         user.setId(UUID.randomUUID().toString().substring(0,5));
         user.setUsername(username);
-        user.setPassword(password);
+        // Hashing the password
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        user.setPassword(hashedPassword);
         user.setEmail(email);
         return userRepository.save(user);
     }
