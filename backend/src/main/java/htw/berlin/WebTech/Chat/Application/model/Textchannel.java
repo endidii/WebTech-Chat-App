@@ -1,5 +1,6 @@
 package htw.berlin.WebTech.Chat.Application.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class Textchannel {
     @NotNull
     private String description;
 
+    @JsonBackReference
     @ManyToMany
     private List<User> users;
 

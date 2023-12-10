@@ -1,5 +1,6 @@
 package htw.berlin.WebTech.Chat.Application.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +33,7 @@ public class User {
     @OneToMany
     private List<Message> messages;
 
+    @JsonManagedReference
     @ManyToMany
     private List<Textchannel> textchannels;
 
