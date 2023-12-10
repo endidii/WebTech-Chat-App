@@ -59,6 +59,7 @@ function createChannel(){
     console.log(response);
     //add user to channel
     axios.post(`http://localhost:8080/channels/${id.value}/users/${props.userData?.id}`).then(function (response) {
+      window.location.reload();
       console.log(response);
     })
   })
