@@ -47,7 +47,7 @@ function closeModal(){
 }
 function createChannel(){
   //create channel
-  axios.post(`http://localhost:8080/channels/users/${props.userData.id}`, {
+  axios.post(`http://localhost:8080/channels/users/${props.userData?.id}`, {
     name: name.value,
     description: description.value
   })
@@ -58,7 +58,7 @@ function createChannel(){
     console.log("id value: "+id.value);
     console.log(response);
     //add user to channel
-    axios.post(`http://localhost:8080/channels/${id.value}/users/${props.userData.id}`).then(function (response) {
+    axios.post(`http://localhost:8080/channels/${id.value}/users/${props.userData?.id}`).then(function (response) {
       console.log(response);
     })
   })
