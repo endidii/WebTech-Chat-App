@@ -43,9 +43,9 @@ public class ChatAppController {
     }
 
     //create new channel
-    @PostMapping("/channels")
-    public Textchannel createTextchannel(@RequestBody Textchannel textchannel){
-        return textchannelService.createTextchannel(textchannel.getName(), textchannel.getDescription());
+    @PostMapping("/channels/users/{userId}")
+    public Textchannel createTextchannel(@RequestBody Textchannel textchannel, @PathVariable("userId") String userId){
+        return textchannelService.createTextchannel(textchannel.getName(), textchannel.getDescription(), userId);
     }
 
     //add new user to channel

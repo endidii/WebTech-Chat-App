@@ -18,7 +18,7 @@
             <input v-model="description" type="text" class="user-input" id="description-input">
           </div>
         </div>
-      <button>Textkanal erstellen</button>
+      <button class="create-channel-button" @click="createChannel">Textkanal erstellen</button>
     </div>
   </div>
 
@@ -32,6 +32,10 @@ const name = ref("")
 const description = ref("")
 let isOpen = ref(false)
 
+const props = defineProps({
+  userData: Object
+});
+
 function openModal(){
   isOpen.value = true
   console.log("Modal isOpen: " + isOpen.value)
@@ -39,6 +43,16 @@ function openModal(){
 function closeModal(){
   isOpen.value = false
   console.log("Modal isOpen: " + isOpen.value)
+}
+function createChannel(){
+  axios.post(`http://localhost:8080/channels/users/${props.userData.id}`, {
+    name: name.value,
+    description: description.value
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  isOpen.value = false;
 }
 
 </script>
@@ -54,6 +68,7 @@ function closeModal(){
   height: 100%;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgba(0,0,0,0.4);
+  font-family: 'Poppins', sans-serif;
 }
 
 .modal-content {
@@ -76,5 +91,15 @@ function closeModal(){
   text-decoration: none;
   cursor: pointer;
 }
-
+.create-channel-button{
+  background-color: #006EDB;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+}
+.create-channel-button:hover{
+  cursor: pointer;
+}
 </style>

@@ -39,9 +39,9 @@
       <span class="username">Phuc</span>
     </button>
 
-    <AddDirectchannelButton></AddDirectchannelButton>
+    <AddDirectchannelButton v-if="user" :user-data="user"></AddDirectchannelButton>
 
-    <AddChannelButton></AddChannelButton>
+    <AddChannelButton v-if="user" :user-data="user"></AddChannelButton>
   </div>
 
   <div class="channel-description">

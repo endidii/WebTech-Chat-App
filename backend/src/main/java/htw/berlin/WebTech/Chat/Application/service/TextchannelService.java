@@ -19,11 +19,13 @@ public class TextchannelService {
     private final TextchannelRepository textchannelRepository;
     private final UserRepository userRepository;
 
-    public Textchannel createTextchannel(String name, String description){
+    public Textchannel createTextchannel(String name, String description, String userId){
         Textchannel textchannel = new Textchannel();
         textchannel.setId(UUID.randomUUID().toString().substring(0,5));
         textchannel.setName(name.replace(" ", "-"));
         textchannel.setDescription(description);
+        User user = userRepository.findUserById(userId);
+        user.getTextchannels().add(textchannel);
         return textchannelRepository.save(textchannel);
     }
 

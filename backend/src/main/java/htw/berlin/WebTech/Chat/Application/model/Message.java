@@ -24,4 +24,52 @@ public class Message {
 
     @ManyToOne
     private Directchannel directchannel;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public Textchannel getTextchannel() {
+        return textchannel;
+    }
+
+    public void setTextchannel(Textchannel textchannel) {
+        this.textchannel = textchannel;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public Directchannel getDirectchannel() {
+        return directchannel;
+    }
+
+    public void setDirectchannel(Directchannel directchannel) {
+        this.directchannel = directchannel;
+    }
 }
