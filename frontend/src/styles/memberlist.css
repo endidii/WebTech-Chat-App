@@ -4,7 +4,8 @@
     top: 0;
     right: 0;
     bottom: 0;
-    width: 300px;
+    width: 280px;
+    z-index: -1;
 }
 #memberlist-tag{
     color: white;

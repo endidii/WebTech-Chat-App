@@ -14,10 +14,15 @@ type Channel = {
 
 let channels: Ref<Channel[]> = ref([]);
 
+const props = defineProps({
+  userData: Object
+});
+
 axios
-    .get('http://localhost:8080/users/59c4f/channels')
+    .get(`http://localhost:8080/users/${props.userData.id}/channels`)
     .then((response) => {
       channels.value = response.data
+      console.log(response.data)
     })
 </script>
 

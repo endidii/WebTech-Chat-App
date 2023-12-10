@@ -10,7 +10,7 @@
 
     <p class="side-tags">Textkanäle</p>
 
-    <TextchannelButton></TextchannelButton>
+    <TextchannelButton v-if="user" :user-data="user"></TextchannelButton>
 
     <p class="side-tags">Direktnachrichten</p>
 
@@ -83,17 +83,16 @@ import member from '@/components/Memberlist-member.vue'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router';
 import axios from 'axios';
-
-const userId = ref('')
+const userId = ref("")
 const user = ref();
 const route = useRoute();
-
 onMounted(() => {
   userId.value = route.params.userId as string;
   axios
     .get("http://localhost:8080/users/" + userId.value)
     .then((response) => {
       console.log(response.data);
+      console.log(userId.value);
       user.value = response.data;
     })
 })

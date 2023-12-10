@@ -3,11 +3,12 @@
     background-color: #141419;
     position: fixed;
     top: 0;
-    left: 300px;
-    right: 300px;
+    left: 280px;
+    right: 280px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: -1;
 }
 .channel-name{
     font-weight: bold;
@@ -28,7 +29,7 @@
 .leave-button{
     display: flex;
     margin-right: 30px;
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: #E3505E;
     align-items: center;
     border: none;

@@ -22,7 +22,7 @@ public class TextchannelService {
     public Textchannel createTextchannel(String name, String description){
         Textchannel textchannel = new Textchannel();
         textchannel.setId(UUID.randomUUID().toString().substring(0,5));
-        textchannel.setName(name);
+        textchannel.setName(name.replace(" ", "-"));
         textchannel.setDescription(description);
         return textchannelRepository.save(textchannel);
     }
@@ -48,6 +48,12 @@ public class TextchannelService {
 
     public List<User> getUsersOfTextChannel(String textChannelId) {
         return textchannelRepository.findUsersByChannelId(textChannelId);
+    }
+    public Textchannel getTextchannelById(String textChannelId) {
+        return textchannelRepository.findTextchannelById(textChannelId);
+    }
+    public Textchannel getTextchannelByName(String name) {
+        return textchannelRepository.findTextchannelByName(name.replace(" ", "-"));
     }
 
 }

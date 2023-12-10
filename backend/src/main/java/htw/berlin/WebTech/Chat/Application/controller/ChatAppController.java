@@ -44,8 +44,8 @@ public class ChatAppController {
 
     //create new channel
     @PostMapping("/channels")
-    public Textchannel createTextchannel(@RequestParam String name, @RequestParam String description){
-        return textchannelService.createTextchannel(name, description);
+    public Textchannel createTextchannel(@RequestBody Textchannel textchannel){
+        return textchannelService.createTextchannel(textchannel.getName(), textchannel.getDescription());
     }
 
     //add new user to channel
@@ -89,6 +89,17 @@ public class ChatAppController {
     @GetMapping("/users/{userId}")
     public User getUsersById(@PathVariable("userId") String userId){
         return userService.getUserById(userId);
+    }
+
+    //get channel by channelId
+    @GetMapping("/channels/{channelId}")
+    public Textchannel getTextchannelById(@PathVariable("channelId") String channelId){
+        return textchannelService.getTextchannelById(channelId);
+    }
+    //get textchannel by name
+    @GetMapping("/channels/name/{name}")
+    public Textchannel getTextchannelByName(@PathVariable("name") String name){
+        return textchannelService.getTextchannelByName(name);
     }
 
     @GetMapping("/")

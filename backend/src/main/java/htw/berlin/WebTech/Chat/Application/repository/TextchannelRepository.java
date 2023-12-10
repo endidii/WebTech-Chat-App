@@ -15,4 +15,5 @@ public interface TextchannelRepository extends JpaRepository<Textchannel, String
     List<Textchannel> findTextchannelsByUsersId(String userId);
     @Query("SELECT tc.users FROM Textchannel tc WHERE tc.id = :textChannelId")
     List<User> findUsersByChannelId(@Param("textChannelId") String textChannelId);
+    Textchannel findTextchannelByName(String name);
 }
