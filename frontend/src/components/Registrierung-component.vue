@@ -40,6 +40,10 @@ const password = ref("")
 const emit = defineEmits(["userAdded"])
 
 function onClick(){
+  if (username.value.trim() === '' || email.value.trim() === '' || password.value.trim() === '') {
+    alert('Please fill in all fields');
+    return;
+  }
   axios
     .post("http://localhost:8080/users", {
       username: username.value,
