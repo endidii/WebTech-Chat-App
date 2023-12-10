@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import axios from 'axios'
-import { type Ref, ref} from "vue"
+import {onMounted, type Ref, ref} from "vue"
 
 type Channel = {
   id: string;
@@ -17,13 +17,17 @@ let channels: Ref<Channel[]> = ref([]);
 const props = defineProps({
   userData: Object
 });
-
-axios
-    .get(`http://localhost:8080/users/${props.userData.id}/channels`)
-    .then((response) => {
-      channels.value = response.data
-      console.log(response.data)
-    })
+onMounted(() => {
+  getChannels()
+})
+function getChannels(){
+  axios
+      .get(`http://localhost:8080/users/${props.userData.id}/channels`)
+      .then((response) => {
+        channels.value = response.data
+        console.log(response.data)
+      })
+}
 </script>
 
 <style scoped>

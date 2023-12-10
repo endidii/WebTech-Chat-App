@@ -3,7 +3,7 @@
     <button id="add-channel-button" class="join-button" type="button" @click="openModal">Textkanal erstellen</button>
   </form>
 
-  <div v-if="isOpen" id="myModal" class="modal">
+  <form v-if="isOpen" id="myModal" class="modal">
     <div class="modal-content">
       <span @click="closeModal" class="close">&times;</span>
       <p>Textkanal erstellen</p>
@@ -18,9 +18,9 @@
             <input v-model="description" type="text" class="user-input" id="description-input">
           </div>
         </div>
-      <button class="create-channel-button" @click="createChannel">Textkanal erstellen</button>
+      <button class="create-channel-button" @click="createChannel" type="submit">Textkanal erstellen</button>
     </div>
-  </div>
+  </form>
 
 </template>
 
@@ -28,6 +28,7 @@
 import { ref } from 'vue';
 import axios from 'axios';
 
+const id = ref("")
 const name = ref("")
 const description = ref("")
 let isOpen = ref(false)
@@ -45,13 +46,23 @@ function closeModal(){
   console.log("Modal isOpen: " + isOpen.value)
 }
 function createChannel(){
+  //create channel
   axios.post(`http://localhost:8080/channels/users/${props.userData.id}`, {
     name: name.value,
     description: description.value
   })
   .then(function (response) {
+    id.value = response.data.id;
+    name.value = response.data.name;
+    description.value = response.data.description;
+    console.log("id value: "+id.value);
     console.log(response);
+    //add user to channel
+    axios.post(`http://localhost:8080/channels/${id.value}/users/${props.userData.id}`).then(function (response) {
+      console.log(response);
+    })
   })
+  //close modal
   isOpen.value = false;
 }
 

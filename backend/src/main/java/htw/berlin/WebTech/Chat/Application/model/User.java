@@ -1,6 +1,8 @@
 package htw.berlin.WebTech.Chat.Application.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +14,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User {
     @Id
     private String id;
@@ -33,7 +38,6 @@ public class User {
     @OneToMany
     private List<Message> messages;
 
-    @JsonManagedReference
     @ManyToMany
     private List<Textchannel> textchannels;
 
