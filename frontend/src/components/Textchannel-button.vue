@@ -1,5 +1,11 @@
 <template>
-  <button class="channel-button" v-for="channel in channelObjects" :key="channel.id"><span class="chat-tag"># {{channel.name}}</span></button>
+  <button
+      @click="buttonClicked(channel)"
+      class="channel-button"
+      v-for="channel in channelObjects"
+      :key="channel.id">
+    <span class="chat-tag"># {{channel.name}}</span>
+  </button>
 </template>
 
 <script setup lang="ts">
@@ -9,7 +15,7 @@ import {onMounted, type Ref, ref} from "vue"
 type Channel = {
   id: string;
   name: string;
-  description?: string;
+  description: string;
   users: User[];
   messages: any[];
 };
@@ -20,11 +26,12 @@ type User = {
   email: string;
   password: string;
   messages: any[];
-  textchannels: (string | Channel)[];
+  textchannels: (Channel)[];
   directchannels: any[];
 };
 
 let channelObjects: Ref<Channel[]> = ref([]);
+const emit = defineEmits(["channelButtonClicked"])
 
 const props = defineProps({
   userData: Object
@@ -32,6 +39,10 @@ const props = defineProps({
 onMounted(() => {
   getChannels()
 })
+function buttonClicked(channel: Channel){
+  emit("channelButtonClicked", channel)
+  console.log("channel-button clicked, ID: " + channel.id)
+}
 function getChannels(){
   axios
       .get(`http://localhost:8080/users/${props.userData?.id}/channels`)

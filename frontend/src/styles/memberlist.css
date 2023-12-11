@@ -23,7 +23,7 @@
 .user-img{
     height: 40px;
     width: 40px;
-    border-radius: 4px;
+    border-radius: 2px;
     object-fit: cover;
 }
 .username{

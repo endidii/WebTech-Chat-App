@@ -78,10 +78,16 @@
     display: flex;
     align-items: center;
     background-color: #141419;
-    border-radius: 8px;
+    border-radius: 2px;
     border: none;
     margin-bottom: 10px;
     margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 0;
+}
+.chat-button:hover{
+    background-color: #006EDB;
+    cursor: pointer;
 }
 .chat-tag{
     font-family: 'Poppins', sans-serif;

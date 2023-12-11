@@ -44,13 +44,7 @@
     <AddChannelButton v-if="user" :user-data="user"></AddChannelButton>
   </div>
 
-  <div class="channel-description">
-    <p class="channel-name"># web-tech</p>
-    <button class="leave-button">
-      <span>verlassen</span>
-      <img src="../assets/leave-icon.png" alt="leave" />
-    </button>
-  </div>
+  <ChannelDescription></ChannelDescription>
 
   <div class="memberlist-div">
     <p id="memberlist-tag">Mitgliederliste</p>
@@ -79,10 +73,12 @@ import '../components/Textchannel-button.vue'
 import TextchannelButton from '@/components/Textchannel-button.vue'
 import AddChannelButton from '@/components/Add-Textchannel-button.vue'
 import AddDirectchannelButton from "@/components/Add-Directchannel-button.vue";
+import ChannelDescription from "@/components/Channel-Description.vue";
 import member from '@/components/Memberlist-member.vue'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router';
 import axios from 'axios';
+
 const userId = ref("")
 const user = ref();
 const route = useRoute();
