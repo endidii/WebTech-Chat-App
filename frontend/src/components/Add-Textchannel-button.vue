@@ -3,18 +3,18 @@
     <button id="add-channel-button" class="join-button" type="button" @click="openModal">Textkanal erstellen</button>
   </form>
 
-  <form v-if="isOpen" id="myModal" class="modal">
+  <form v-if="isOpen" class="modal">
     <div class="modal-content">
       <span @click="closeModal" class="close">&times;</span>
-      <p>Textkanal erstellen</p>
+      <p class="header">Textkanal erstellen</p>
         <div class="name-description-div">
           <div class="input-div">
-            <p>Name</p>
+            <p class="input-tag">Name</p>
             <input v-model="name" type="text" class="user-input" id="name-input">
           </div>
 
           <div class="input-div">
-            <p>Beschreibung</p>
+            <p class="input-tag">Beschreibung</p>
             <input v-model="description" type="text" class="user-input" id="description-input">
           </div>
         </div>
@@ -88,7 +88,7 @@ function createChannel(){
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 40%;
+  width: 20%;
   border-radius: 6px;
 }
 .close {
@@ -96,7 +96,6 @@ function createChannel(){
   font-size: 28px;
   font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
   color: black;
@@ -110,8 +109,25 @@ function createChannel(){
   padding: 10px 20px;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
+  margin-top: 10px;
+  width: 100%;
 }
 .create-channel-button:hover{
   cursor: pointer;
+}
+.header{
+  font-size: 30px;
+  font-weight: bold;
+}
+.input-tag{
+  font-size: 20px;
+  font-weight: 500;
+}
+.user-input{
+  margin: 10px 0 10px 0;
+  padding: 10px 0 10px 10px;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
 }
 </style>

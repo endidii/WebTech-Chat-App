@@ -51,10 +51,6 @@
 
   <div class="channel-description">
     <p class="channel-name"># {{channelName}}</p>
-    <button class="leave-button">
-      <span>verlassen</span>
-      <img src="../assets/leave-icon.png" alt="leave" />
-    </button>
   </div>
 
   <div class="memberlist-div">
@@ -62,7 +58,11 @@
     <member></member>
   </div>
 
-  <input type="text" id="message-input" placeholder="Nachricht eingeben" />
+  <input v-model="message_content"
+         :disabled="isInputDisabled"
+         v-on:keyup.enter="postMessage(message_content)"
+         type="text" id="message-input"
+         placeholder="Nachricht eingeben" />
 
   <div class="logged-in-div">
     <img src="../assets/cat1.jpeg" alt="user-img" />
@@ -105,17 +105,14 @@ type Channel = {
   users: User[];
   messages: any[];
 };
+
 const user = ref();
 const userId = ref("")
 const route = useRoute();
 const channelName = ref("");
 const activeChannelId = ref<string | undefined>(undefined);
-
-function onChannelButtonClicked(channel: Channel) {
-  console.log("channel-button clicked, name: " + channel.name)
-  channelName.value = channel.name;
-  activeChannelId.value = channel.id;
-}
+const isInputDisabled = ref(true);
+let message_content = ref("");
 
 onMounted(() => {
   userId.value = route.params.userId as string;
@@ -127,6 +124,25 @@ onMounted(() => {
       user.value = response.data;
     })
 })
+
+function onChannelButtonClicked(channel: Channel) {
+  console.log("channel-button clicked, name: " + channel.name)
+  channelName.value = channel.name;
+  activeChannelId.value = channel.id;
+  isInputDisabled.value = false;
+  console.log("enableInput")
+}
+
+function postMessage(message_content: string) {
+  axios
+    .post("http://localhost:8080/channels/" + activeChannelId.value + "/users/" + userId.value  + "/messages",
+        {
+          content: message_content
+        })
+    .then((response) => {
+      console.log(response.data);
+    })
+}
 </script>
 
 <style scoped>
