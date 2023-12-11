@@ -10,7 +10,11 @@
 
     <p class="side-tags">Textkanäle</p>
 
-    <TextchannelButton v-if="user" :user-data="user"></TextchannelButton>
+    <TextchannelButton
+        @channel-button-clicked="onChannelButtonClicked"
+        v-if="user"
+        :user-data="user">
+    </TextchannelButton>
 
     <p class="side-tags">Direktnachrichten</p>
 
@@ -44,7 +48,13 @@
     <AddChannelButton v-if="user" :user-data="user"></AddChannelButton>
   </div>
 
-  <ChannelDescription></ChannelDescription>
+  <div class="channel-description">
+    <p class="channel-name"># {{channelName}}</p>
+    <button class="leave-button">
+      <span>verlassen</span>
+      <img src="../assets/leave-icon.png" alt="leave" />
+    </button>
+  </div>
 
   <div class="memberlist-div">
     <p id="memberlist-tag">Mitgliederliste</p>
@@ -73,15 +83,37 @@ import '../components/Textchannel-button.vue'
 import TextchannelButton from '@/components/Textchannel-button.vue'
 import AddChannelButton from '@/components/Add-Textchannel-button.vue'
 import AddDirectchannelButton from "@/components/Add-Directchannel-button.vue";
-import ChannelDescription from "@/components/Channel-Description.vue";
 import member from '@/components/Memberlist-member.vue'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router';
 import axios from 'axios';
 
-const userId = ref("")
+type User = {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+  messages: any[];
+  textchannels: (Channel)[];
+  directchannels: any[];
+};
+type Channel = {
+  id: string;
+  name: string;
+  description: string;
+  users: User[];
+  messages: any[];
+};
 const user = ref();
+const userId = ref("")
 const route = useRoute();
+const channelName = ref("");
+
+function onChannelButtonClicked(channel: Channel) {
+  console.log("channel-button clicked, name: " + channel.name)
+  channelName.value = channel.name;
+}
+
 onMounted(() => {
   userId.value = route.params.userId as string;
   axios

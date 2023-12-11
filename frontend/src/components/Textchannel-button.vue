@@ -41,7 +41,6 @@ onMounted(() => {
 })
 function buttonClicked(channel: Channel){
   emit("channelButtonClicked", channel)
-  console.log("channel-button clicked, ID: " + channel.id)
 }
 function getChannels(){
   axios
