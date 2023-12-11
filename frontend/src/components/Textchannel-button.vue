@@ -3,6 +3,7 @@
       @click="buttonClicked(channel)"
       class="channel-button"
       v-for="channel in channelObjects"
+      :class="{ active: activeChannelId === channel.id }"
       :key="channel.id">
     <span class="chat-tag"># {{channel.name}}</span>
   </button>
@@ -34,7 +35,8 @@ let channelObjects: Ref<Channel[]> = ref([]);
 const emit = defineEmits(["channelButtonClicked"])
 
 const props = defineProps({
-  userData: Object
+  userData: Object,
+  activeChannelId: String
 });
 onMounted(() => {
   getChannels()
@@ -76,5 +78,8 @@ function getChannels(){
 .channel-button:hover{
   background-color: #006EDB;
   cursor: pointer;
+}
+.active {
+  background-color: #006EDB;
 }
 </style>

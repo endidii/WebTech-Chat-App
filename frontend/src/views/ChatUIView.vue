@@ -13,6 +13,7 @@
     <TextchannelButton
         @channel-button-clicked="onChannelButtonClicked"
         v-if="user"
+        :activeChannelId="activeChannelId"
         :user-data="user">
     </TextchannelButton>
 
@@ -108,10 +109,12 @@ const user = ref();
 const userId = ref("")
 const route = useRoute();
 const channelName = ref("");
+const activeChannelId = ref<string | undefined>(undefined);
 
 function onChannelButtonClicked(channel: Channel) {
   console.log("channel-button clicked, name: " + channel.name)
   channelName.value = channel.name;
+  activeChannelId.value = channel.id;
 }
 
 onMounted(() => {
