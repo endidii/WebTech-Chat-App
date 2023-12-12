@@ -53,9 +53,11 @@
     <p class="channel-name"> <span v-if="isInputDisabled === false" class="hashtag">#</span> {{channelName}}</p>
   </div>
 
+  <MessageHistory :activeChannelId="activeChannelId"></MessageHistory>
+
   <div class="memberlist-div">
     <p id="memberlist-tag">Mitgliederliste</p>
-    <member></member>
+    <member :activeChannelId="activeChannelId"></member>
   </div>
 
   <input v-model="message_content"
@@ -126,7 +128,7 @@ onMounted(() => {
 })
 
 function onChannelButtonClicked(channel: Channel) {
-  console.log("channel-button clicked, name: " + channel.name)
+  console.log("channel-button clicked, id: " + channel.id)
   channelName.value = channel.name;
   activeChannelId.value = channel.id;
   isInputDisabled.value = false;

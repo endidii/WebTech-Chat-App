@@ -13,13 +13,18 @@
 <script setup lang="ts">
 import axios from 'axios'
 import { onMounted, type Ref, ref } from 'vue'
+type Message = {
+  id:string;
+  sender:User;
+  created_at:string;
+}
 
 type Channel = {
   id: string
   name: string
   description: string
   users: User[]
-  messages: any[]
+  messages: Message[]
 }
 
 type User = {
@@ -27,7 +32,7 @@ type User = {
   username: string
   email: string
   password: string
-  messages: any[]
+  messages: Message[]
   textchannels: Channel[]
   directchannels: any[]
 }
