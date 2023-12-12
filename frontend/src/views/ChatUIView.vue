@@ -53,8 +53,6 @@
     <p class="channel-name"> <span v-if="isInputDisabled === false" class="hashtag">#</span> {{channelName}}</p>
   </div>
 
-  <MessageHistory :activeChannelId="activeChannelId"></MessageHistory>
-
   <div class="memberlist-div">
     <p id="memberlist-tag">Mitgliederliste</p>
     <member :activeChannelId="activeChannelId"></member>
