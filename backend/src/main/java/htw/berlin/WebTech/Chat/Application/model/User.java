@@ -1,12 +1,10 @@
 package htw.berlin.WebTech.Chat.Application.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.util.List;
@@ -25,13 +23,12 @@ public class User {
     @NotNull
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @Email
     @NotNull
     private String email;
 
     @Column(nullable = false)
-    @Size(min = 8)
     @NotNull
     private String password;
 

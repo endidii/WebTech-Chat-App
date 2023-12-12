@@ -2,7 +2,7 @@
   <button
       @click="buttonClicked(channel)"
       class="channel-button"
-      v-for="channel in channelObjects"
+      v-for="channel in channelsForUser"
       :class="{ active: activeChannelId === channel.id }"
       :key="channel.id">
     <span class="chat-tag"># {{channel.name}}</span>
@@ -12,6 +12,14 @@
 <script setup lang="ts">
 import axios from 'axios'
 import {onMounted, type Ref, ref} from "vue"
+
+type Message = {
+  id: string;
+  content: string;
+  timestamp: string;
+  user: User;
+  textchannel: Channel;
+};
 
 type Channel = {
   id: string;
@@ -31,8 +39,10 @@ type User = {
   directchannels: any[];
 };
 
-let channelObjects: Ref<Channel[]> = ref([]);
+
 const emit = defineEmits(["channelButtonClicked"])
+
+let channelsForUser: Ref<Channel[]> = ref([]);
 
 const props = defineProps({
   userData: Object,
@@ -49,27 +59,40 @@ function getChannels(){
       .get(`http://localhost:8080/users/${props.userData?.id}/channels`)
       .then((response) => {
         let userId = props.userData?.id;
-        let json = response.data;
-        json.forEach((item:Channel) => {
-          if (typeof item === 'object' && item.users) {
-            item.users.forEach((user:User) => {
-              if (user.id === userId) {
-                // Add the entire top-level channel object
-                if (item.name) {
-                  channelObjects.value.push(item);
-                }
-                // Iterate through the user's textchannels
-                user.textchannels.forEach(channel => {
-                  // Check if the item in textchannels is a channel object and add it
-                  if (typeof channel === 'object' && channel.name) {
-                    channelObjects.value.push(channel);
+        let jsonResponse = response.data;
+        jsonResponse.forEach((item: Channel | string) => {
+          if (typeof item === 'object' && 'users' in item) {
+            const isUserInTopLevel = item.users.some(user =>
+                (typeof user === 'object' && user.id === userId) || user === userId
+            );
+
+            if (isUserInTopLevel && !channelsForUser.value.some(channel => channel.id === item.id)) {
+              channelsForUser.value.push(item);
+            }
+
+            item.users.forEach((user: User | string) => {
+              if (typeof user === 'object' && user.id === userId) {
+                user.textchannels.forEach((textchannel: Channel | string) => {
+                  if (typeof textchannel === 'string') {
+                    // Handle string IDs in textchannels
+                    const channelObject = jsonResponse.find(channel =>
+                        typeof channel === 'object' && channel.id === textchannel
+                    ) as Channel | undefined;
+
+                    if (channelObject && !channelsForUser.value.some(channel => channel.id === channelObject.id)) {
+                      channelsForUser.value.push(channelObject);
+                    }
+                  } else if (!channelsForUser.value.some(channel => channel.id === textchannel.id)) {
+                    // Handle channel objects in textchannels
+                    channelsForUser.value.push(textchannel);
                   }
                 });
               }
             });
           }
         });
-        console.log(channelObjects.value);
+
+        console.log(channelsForUser.value);
       })
 }
 </script>

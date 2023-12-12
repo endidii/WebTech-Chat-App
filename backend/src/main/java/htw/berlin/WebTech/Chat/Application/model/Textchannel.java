@@ -1,6 +1,5 @@
 package htw.berlin.WebTech.Chat.Application.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -18,8 +17,11 @@ import java.util.List;
 public class Textchannel {
     @Id
     private String id;
+
     @NotNull
+    @Column(unique = true)
     private String name;
+
     @NotNull
     private String description;
 
