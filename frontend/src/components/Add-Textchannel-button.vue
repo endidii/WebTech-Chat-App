@@ -90,6 +90,7 @@ function createChannel(){
   border: 1px solid #888;
   width: 20%;
   border-radius: 6px;
+  color: black;
 }
 .close {
   color: #aaa;

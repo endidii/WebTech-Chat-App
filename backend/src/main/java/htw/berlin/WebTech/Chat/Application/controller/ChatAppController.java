@@ -56,10 +56,10 @@ public class ChatAppController {
 
     //add message to channel
     @PostMapping("/channels/{channelId}/users/{userId}/messages")
-    public void addMessageToChannel(@RequestBody String content,
+    public void addMessageToChannel(@RequestBody Message message_input,
                                     @PathVariable("channelId") String channelId,
                                     @PathVariable("userId") String userId){
-        Message message = messageService.createMessage(userId,channelId,content);
+        Message message = messageService.createMessage(userId,channelId,message_input.getContent());
         textchannelService.addMessageToTextchannel(message, channelId);
     }
 
