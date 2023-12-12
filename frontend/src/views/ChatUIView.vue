@@ -50,7 +50,7 @@
   </div>
 
   <div class="channel-description">
-    <p class="channel-name"># {{channelName}}</p>
+    <p class="channel-name"> <span v-if="isInputDisabled === false" class="hashtag">#</span> {{channelName}}</p>
   </div>
 
   <div class="memberlist-div">
@@ -165,5 +165,9 @@ body {
   #message-input {
     right: 20px;
   }
+}
+.hashtag{
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
 }
 </style>
