@@ -20,6 +20,9 @@ body{
   font-family: 'Poppins', sans-serif;
   background-color: #222429;
   margin-bottom: 100px;
+  margin-top: 130px;
+  margin-left: 280px;
+  margin-right: 280px;
 }
 .page-div{
   display: flex;

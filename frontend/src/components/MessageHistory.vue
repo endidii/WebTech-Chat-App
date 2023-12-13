@@ -87,8 +87,6 @@ onMounted(() => {
   margin-right: 8px;
 }
 .message-history-div{
-  margin-left: 280px;
-  margin-right: 280px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
