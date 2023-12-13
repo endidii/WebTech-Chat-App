@@ -133,13 +133,14 @@ function onChannelButtonClicked(channel: Channel) {
   console.log("enableInput")
 }
 
-function postMessage(message_content: string) {
+function postMessage(message: string) {
   axios
     .post("http://localhost:8080/channels/" + activeChannelId.value + "/users/" + userId.value  + "/messages",
         {
-          content: message_content
+          content: message
         })
     .then((response) => {
+      message_content.value = "";
       console.log(response.data);
     })
 }
