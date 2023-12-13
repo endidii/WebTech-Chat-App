@@ -58,6 +58,8 @@
     <member :activeChannelId="activeChannelId"></member>
   </div>
 
+  <MessageHistory :active-channel-id="activeChannelId"></MessageHistory>
+
   <input v-model="message_content"
          :disabled="isInputDisabled"
          v-on:keyup.enter="postMessage(message_content)"
@@ -88,6 +90,7 @@ import member from '@/components/Memberlist-member.vue'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router';
 import axios from 'axios';
+import MessageHistory from "@/components/MessageHistory.vue";
 
 type User = {
   id: string;
@@ -133,13 +136,14 @@ function onChannelButtonClicked(channel: Channel) {
   console.log("enableInput")
 }
 
-function postMessage(message_content: string) {
+function postMessage(message: string) {
   axios
     .post("http://localhost:8080/channels/" + activeChannelId.value + "/users/" + userId.value  + "/messages",
         {
-          content: message_content
+          content: message
         })
     .then((response) => {
+      message_content.value = "";
       console.log(response.data);
     })
 }
@@ -147,11 +151,6 @@ function postMessage(message_content: string) {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap');
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #222429;
-  margin-bottom: 1000px;
-}
 @media (max-width: 1000px) {
   .memberlist-div {
     display: none;

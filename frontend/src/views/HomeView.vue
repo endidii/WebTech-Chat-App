@@ -19,6 +19,7 @@ import RegistrierungComponent from "@/components/Registrierung-component.vue";
 body{
   font-family: 'Poppins', sans-serif;
   background-color: #222429;
+  margin-bottom: 100px;
 }
 .page-div{
   display: flex;
