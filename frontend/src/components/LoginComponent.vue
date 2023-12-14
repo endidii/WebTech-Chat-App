@@ -43,13 +43,16 @@ function onClick(){
   width: 100%;
   margin-top: 20px;
   margin-bottom: 10px;
-  font-family: 'Poppins', sans-serif;
   background-color: #006EDB;
   border: none;
   color: white;
   height: 45px;
   cursor: pointer;
   border-radius: 4px;
+  transition: filter 0.3s;
+}
+.register-button:hover{
+  filter: brightness(95%);
 }
 .user-input{
   font-family: 'Poppins', sans-serif;
