@@ -1,39 +1,72 @@
 <template>
-  <form class="sign-up-div">
-    <p id="register-p">Anmelden</p>
+  <div class="login-div">
+    <form class="sign-up-div">
+      <p id="register-p">Anmelden</p>
 
-    <div class="form-div">
-      <div class="input-div">
-        <p>Email</p>
-        <input v-model="email" type="email" class="user-input" id="email-input">
+      <div class="form-div">
+        <div class="input-div">
+          <p>Email</p>
+          <input v-model="email" type="email" class="user-input" id="email-input">
+        </div>
+
+        <div class="input-div">
+          <p>Passwort</p>
+          <input v-model="password" type="password" class="user-input" id="password-input">
+        </div>
       </div>
 
-      <div class="input-div">
-        <p>Passwort</p>
-        <input v-model="password" type="password" class="user-input" id="password-input">
+      <button type="button" class="register-button" @click="getUserByEmail">Anmelden</button>
+
+      <div class="bereits-user-div">
+        <p>Du hast kein Konto?</p>
+        <router-link to="/signup">Registrieren</router-link>
       </div>
-    </div>
+    </form>
 
-    <button type="button" class="register-button" @click="onClick">Anmelden</button>
-
-    <div class="bereits-user-div">
-      <p>Du hast kein Konto?</p>
-      <router-link to="/signup">Registrieren</router-link>
-    </div>
-
-  </form>
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </div>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
+import axios from "axios";
 
-const username = ref("")
-const email = ref("")
-const password = ref("")
-const emit = defineEmits(["userAdded"])
+type User = {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+  messages: any[];
+  textchannels: (Channel)[];
+  directchannels: any[];
+};
 
-function onClick(){
+const email = ref('');
+const password = ref('');
+const errorMessage = ref('');
+const user = ref(null);
+const emit = defineEmits(["userLoggedIn"])
 
-}
+const getUserByEmail = async () => {
+  if (email.value.trim() === '' || password.value.trim() === '') {
+    alert('Please fill in all fields');
+    return;
+  }
+  errorMessage.value = ''; // Reset error message
+  user.value = null; // Reset user data
+  try {
+    const response = await axios.get('/api/users/email', {
+      email: email.value
+    });
+    // Handle the response, e.g., store the user data
+    user.value = response.data; // Store the user data
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      errorMessage.value = `No user found with the email: ${email.value}`;
+    } else {
+      errorMessage.value = 'An error occurred. Please try again later.';
+    }
+  }
+};
 </script>
 <style scoped>
 .input-div{
@@ -98,5 +131,19 @@ function onClick(){
 }
 .bereits-user-div p {
   margin: 0;
+}
+.error-message {
+  color: white;
+  font-size: 18px;
+  background-color: #E3505E;
+  border-radius: 4px;
+  padding: 5px 10px 5px 10px;
+  margin-top: 16px;
+}
+.login-div{
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  align-items: center;
 }
 </style>

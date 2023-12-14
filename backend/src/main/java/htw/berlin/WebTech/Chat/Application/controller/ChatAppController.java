@@ -9,7 +9,9 @@ import htw.berlin.WebTech.Chat.Application.service.MessageService;
 import htw.berlin.WebTech.Chat.Application.service.TextchannelService;
 import htw.berlin.WebTech.Chat.Application.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
@@ -40,6 +42,17 @@ public class ChatAppController {
     @GetMapping("/users/username/{username}")
     public User getUserById(@PathVariable("username") String username){
         return userService.getUserByUsername(username);
+    }
+    //get user by Email
+    @GetMapping("/users/email")
+    public ResponseEntity<User> getUserByEmail(@RequestBody User user) {
+        User foundUser = userService.getUserByEmail(user.getEmail());
+        if (foundUser == null) {
+            // User not found, return 404 Not Found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        // User found, return 200 OK with the user data
+        return ResponseEntity.ok(foundUser);
     }
 
     //create new channel

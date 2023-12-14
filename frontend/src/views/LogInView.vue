@@ -33,7 +33,7 @@ import LoginComponent from "@/components/LoginComponent.vue";
 }
 
 .logo_img{
-  height: 80px;
+  height: 90px;
 }
 #underscore{
   font-size: 50px;
@@ -42,7 +42,7 @@ import LoginComponent from "@/components/LoginComponent.vue";
   display: flex;
   align-items: center;
   justify-content: end;
-  margin-right: 100px;
+  margin-right: 80px;
 }
 .blendr-name{
   color: white;
