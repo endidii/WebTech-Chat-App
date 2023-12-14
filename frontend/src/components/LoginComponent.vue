@@ -1,37 +1,31 @@
 <template>
-<form class="sign-up-div">
-<p id="register-p">Registrieren</p>
+  <form class="sign-up-div">
+    <p id="register-p">Anmelden</p>
 
-<div class="form-div">
-  <div class="input-div">
-    <p>Name</p>
-    <input v-model="username" type="text" class="user-input" id="name-input">
-  </div>
+    <div class="form-div">
+      <div class="input-div">
+        <p>Email</p>
+        <input v-model="email" type="email" class="user-input" id="email-input">
+      </div>
 
-  <div class="input-div">
-    <p>Email</p>
-    <input v-model="email" type="email" class="user-input" id="email-input">
-  </div>
+      <div class="input-div">
+        <p>Passwort</p>
+        <input v-model="password" type="password" class="user-input" id="password-input">
+      </div>
+    </div>
 
-  <div class="input-div">
-    <p>Passwort</p>
-    <input v-model="password" type="password" class="user-input" id="password-input">
-  </div>
-</div>
-  
-<button type="button" class="register-button" @click="onClick">Registrieren</button>
+    <button type="button" class="register-button" @click="onClick">Anmelden</button>
 
-<div class="bereits-user-div">
-  <p>Bereits ein User?</p>
-  <router-link to="/login">Einloggen</router-link>
-</div>
+    <div class="bereits-user-div">
+      <p>Du hast kein Konto?</p>
+      <router-link to="/">Registrieren</router-link>
+    </div>
 
-</form>
+  </form>
 </template>
-
 <script setup lang="ts">
-import { ref } from 'vue';
-import axios from 'axios';
+import { ref } from "vue";
+import axios from "axios";
 import router from "@/router";
 
 const username = ref("")
@@ -57,7 +51,6 @@ function onClick(){
     })
 }
 </script>
-
 <style scoped>
 .input-div{
   width: 100%;

@@ -24,3 +24,6 @@
     color: white;
     font-family: 'Poppins', sans-serif;
 }
+.logged-in-div p {
+    margin: 0;
+}

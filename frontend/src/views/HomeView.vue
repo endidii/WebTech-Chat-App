@@ -15,16 +15,8 @@ import "@/components/Registrierung-component.vue"
 import RegistrierungComponent from "@/components/Registrierung-component.vue";
 </script>
 
-<style>
-body{
-  font-family: 'Poppins', sans-serif;
-  background-color: #222429;
-  margin-bottom: 100px;
-  margin-left: 280px;
-  margin-right: 280px;
-  height: 100%; /* Ensure the body takes the full viewport height */
-  overflow: hidden; /* Prevents scrolling on the entire page */
-}
+<style scoped>
+
 .page-div{
   display: flex;
   position: fixed;
@@ -42,31 +34,20 @@ body{
 }
 
 .logo_img{
-  height: 150px;
+  height: 80px;
 }
 #underscore{
-  font-size: 100px;
+  font-size: 50px;
 }
 .logo-div-register{
   display: flex;
   align-items: center;
   justify-content: end;
-  margin-right: 80px;
+  margin-right: 100px;
 }
 .blendr-name{
   color: white;
   font-weight: bold;
-  font-size: 40px;
-}
-@media (max-width: 1000px) {
-  .page-div{
-    flex-direction: column;
-    align-items: center;
-    column-gap: 20px;
-  }
-  .logo-div-register{
-    margin-bottom: 30px;
-    padding-left: 70px;
-  }
+  font-size: 50px;
 }
 </style>

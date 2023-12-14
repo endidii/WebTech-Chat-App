@@ -51,7 +51,7 @@ function postMessage(message: string) {
           {
             content: message
           })
-      .then((response) => {
+      .then(() => {
         message_content.value = "";
         fetchMessages(props.activeChannelId as string);
         console.log(message);
