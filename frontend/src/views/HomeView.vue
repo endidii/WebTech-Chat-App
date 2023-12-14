@@ -20,9 +20,10 @@ body{
   font-family: 'Poppins', sans-serif;
   background-color: #222429;
   margin-bottom: 100px;
-  margin-top: 130px;
   margin-left: 280px;
   margin-right: 280px;
+  height: 100%; /* Ensure the body takes the full viewport height */
+  overflow: hidden; /* Prevents scrolling on the entire page */
 }
 .page-div{
   display: flex;

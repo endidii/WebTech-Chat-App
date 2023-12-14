@@ -29,21 +29,6 @@
       <span class="username">Tony (2ny)</span>
     </button>
 
-    <button class="chat-button">
-      <img class="user-img" src="../assets/image2.png" alt="image" />
-      <span class="username">Max</span>
-    </button>
-
-    <button class="chat-button">
-      <img class="user-img" src="../assets/picture2.png" alt="image" />
-      <span class="username">Minh Nguyet</span>
-    </button>
-
-    <button class="chat-button">
-      <img class="user-img" src="../assets/picture1.jpeg" alt="image" />
-      <span class="username">Phuc</span>
-    </button>
-
     <AddDirectchannelButton v-if="user" :user-data="user"></AddDirectchannelButton>
 
     <AddChannelButton v-if="user" :user-data="user"></AddChannelButton>
@@ -58,13 +43,10 @@
     <member :activeChannelId="activeChannelId"></member>
   </div>
 
-  <MessageHistory :active-channel-id="activeChannelId"></MessageHistory>
-
-  <input v-model="message_content"
-         :disabled="isInputDisabled"
-         v-on:keyup.enter="postMessage(message_content)"
-         type="text" id="message-input"
-         placeholder="Nachricht eingeben" />
+  <MessageHistory
+      :isInputDisabled="isInputDisabled"
+      :userData="user"
+      :active-channel-id="activeChannelId"></MessageHistory>
 
   <div class="logged-in-div">
     <img src="../assets/cat1.jpeg" alt="user-img" />
@@ -80,7 +62,6 @@
 import '../styles/memberlist.css'
 import '../styles/sidebar.css'
 import '../styles/channel-description.css'
-import '../styles/input.css'
 import '../styles/logged-in.css'
 import '../components/Textchannel-button.vue'
 import TextchannelButton from '@/components/Textchannel-button.vue'
@@ -115,7 +96,6 @@ const route = useRoute();
 const channelName = ref("");
 const activeChannelId = ref<string | undefined>(undefined);
 const isInputDisabled = ref(true);
-let message_content = ref("");
 
 onMounted(() => {
   userId.value = route.params.userId as string;
@@ -134,18 +114,6 @@ function onChannelButtonClicked(channel: Channel) {
   activeChannelId.value = channel.id;
   isInputDisabled.value = false;
   console.log("enableInput")
-}
-
-function postMessage(message: string) {
-  axios
-    .post("http://localhost:8080/channels/" + activeChannelId.value + "/users/" + userId.value  + "/messages",
-        {
-          content: message
-        })
-    .then((response) => {
-      message_content.value = "";
-      console.log(response.data);
-    })
 }
 </script>
 
