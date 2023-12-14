@@ -53,6 +53,7 @@ function postMessage(message: string) {
           })
       .then((response) => {
         message_content.value = "";
+        fetchMessages(props.activeChannelId as string);
         console.log(message);
       })
 }
