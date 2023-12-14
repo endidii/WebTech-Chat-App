@@ -23,7 +23,7 @@
 
 <div class="bereits-user-div">
   <p>Bereits ein User?</p>
-  <router-link to="/login">Einloggen</router-link>
+  <router-link to="/">Einloggen</router-link>
 </div>
 
 </form>

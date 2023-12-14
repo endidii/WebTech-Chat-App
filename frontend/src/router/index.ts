@@ -1,15 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/SignupView.vue'
 import ChatUIView from '../views/ChatUIView.vue'
 import LogInView from "@/views/LogInView.vue";
+import SignupView from "@/views/SignupView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+      path: '/signup',
+      name: 'Signup',
+      component: SignupView
     },
     {
       path: '/users/:userId',
@@ -17,7 +18,7 @@ const router = createRouter({
       component: ChatUIView
     },
     {
-      path: '/login',
+      path: '/',
       name: 'LoginView',
       component: LogInView
     },

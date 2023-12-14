@@ -18,15 +18,13 @@
 
     <div class="bereits-user-div">
       <p>Du hast kein Konto?</p>
-      <router-link to="/">Registrieren</router-link>
+      <router-link to="/signup">Registrieren</router-link>
     </div>
 
   </form>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import axios from "axios";
-import router from "@/router";
 
 const username = ref("")
 const email = ref("")
@@ -34,21 +32,7 @@ const password = ref("")
 const emit = defineEmits(["userAdded"])
 
 function onClick(){
-  if (username.value.trim() === '' || email.value.trim() === '' || password.value.trim() === '') {
-    alert('Please fill in all fields');
-    return;
-  }
-  axios
-    .post("http://localhost:8080/users", {
-      username: username.value,
-      email: email.value,
-      password: password.value
-    })
-    .then((response) => {
-      console.log("user erstellt: " + response.data.id)
-      router.push({ name: 'ChatUI', params: { userId: response.data.id, }})
-      emit("userAdded", response.data)
-    })
+
 }
 </script>
 <style scoped>
