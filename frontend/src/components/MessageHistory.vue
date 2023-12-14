@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, type Ref, watch } from "vue";
+import {nextTick, onMounted, ref, type Ref, watch} from "vue";
 import axios from "axios";
 
 type Message = {
@@ -70,6 +70,12 @@ function fetchMessages(channelId: string) {
       });
       messages.value = messageObjects;
       console.log(messages.value);
+      nextTick(() => {
+        const messageHistoryDiv = document.querySelector('.message-history-div');
+        if (messageHistoryDiv) {
+          messageHistoryDiv.scrollTop = messageHistoryDiv.scrollHeight;
+        }
+      });
     });
 }
 
@@ -113,6 +119,8 @@ onMounted(() => {
   overflow-y: auto; /* Enables vertical scrolling */
   max-height: calc(100vh - 70px); /* Height minus input height */
   width: 100%; /* Ensure it takes the full width */
+  margin-bottom: 90px;
+  margin-top: 130px;
 }
 .user-date-div{
   display: flex;
