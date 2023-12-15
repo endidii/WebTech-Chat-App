@@ -1,4 +1,5 @@
 <template>
+  <div class="container-div">
     <div class="message-history-div">
       <div class="message-div" v-for="message in messages.values()" :key="message.id">
         <img class="user-img" src="../assets/cat1.jpeg" alt="user-img" />
@@ -11,7 +12,7 @@
         </div>
       </div>
     </div>
-
+  </div>
     <input v-model="message_content"
            :disabled="props.isInputDisabled"
            v-on:keyup.enter="postMessage(message_content)"
@@ -93,6 +94,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.container-div{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 .message-div{
   margin-left: 20px;
   margin-top: 30px;
@@ -124,7 +130,7 @@ onMounted(() => {
 }
 .message-history-div {
   overflow-y: auto; /* Enables vertical scrolling */
-  max-height: calc(100vh - 70px); /* Height minus input height */
+  max-height: calc(100vh - 240px); /* Height minus input height */
   width: 100%; /* Ensure it takes the full width */
   grid-row-start: 2;
   grid-row-end: row1-end;
