@@ -1,4 +1,5 @@
 <template>
+  <div class="login-div">
 <form class="sign-up-div">
 <p id="register-p">Registrieren</p>
 
@@ -10,7 +11,7 @@
 
   <div class="input-div">
     <p>Email</p>
-    <input v-model="email" type="email" class="user-input" id="email-input">
+    <input v-model="email" type="email" class="user-input" id="email-input" @click="resetError">
   </div>
 
   <div class="input-div">
@@ -26,7 +27,10 @@
   <router-link to="/">Einloggen</router-link>
 </div>
 
-</form>
+  </form>
+
+  <p v-if="errorMessage" class="error-message">{{ errorMessage }} <br> {{email}} </p>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -38,23 +42,40 @@ const username = ref("")
 const email = ref("")
 const password = ref("")
 const emit = defineEmits(["userAdded"])
+const errorMessage = ref(''); // Error message
 
-function onClick(){
+const onClick = async () => {
   if (username.value.trim() === '' || email.value.trim() === '' || password.value.trim() === '') {
     alert('Please fill in all fields');
     return;
   }
-  axios
-    .post("http://localhost:8080/users", {
-      username: username.value,
-      email: email.value,
-      password: password.value
-    })
-    .then((response) => {
-      console.log("user erstellt: " + response.data.id)
-      router.push({ name: 'ChatUI', params: { userId: response.data.id, }})
-      emit("userAdded", response.data)
-    })
+  errorMessage.value = ''; // Reset error message
+  try{
+    await axios
+        .post("http://localhost:8080/users", {
+          username: username.value,
+          email: email.value,
+          password: password.value
+        })
+        .then((response) => {
+          console.log("user erstellt: " + response.data.id)
+          router.push({ name: 'ChatUI', params: { userId: response.data.id, }})
+          emit("userAdded", response.data)
+        })
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      errorMessage.value = "User already exists with this email:";
+      const emailInput = document.getElementById('email-input');
+      if (emailInput) emailInput.style.border = '2px solid #E3505E';
+    } else {
+      errorMessage.value = 'An error occurred. Please try again later.';
+    }
+  }
+};
+function resetError(){
+  errorMessage.value = '';
+  const emailInput = document.getElementById('email-input');
+  if (emailInput) emailInput.style.border = "2px solid black";
 }
 </script>
 
@@ -121,5 +142,13 @@ function onClick(){
 }
 .bereits-user-div p {
   margin: 0;
+}
+.error-message {
+  color: white;
+  font-size: 18px;
+  background-color: #E3505E;
+  border-radius: 4px;
+  padding: 5px 10px 5px 10px;
+  margin-top: 16px;
 }
 </style>
