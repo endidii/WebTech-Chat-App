@@ -13,14 +13,18 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User createUser(String username, String email, String password){
+        User user_exists = userRepository.findUserByEmail(email);
+        if(user_exists != null){
+            return null;
+        }
         User user = new User();
         user.setId(UUID.randomUUID().toString().substring(0,5));
         user.setUsername(username);
+        user.setEmail(email);
         // Hashing the password
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
         user.setPassword(hashedPassword);
-        user.setEmail(email);
         return userRepository.save(user);
     }
 

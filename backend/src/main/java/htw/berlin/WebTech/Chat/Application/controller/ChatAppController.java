@@ -30,8 +30,12 @@ public class ChatAppController {
 
     //create new user
     @PostMapping("/users")
-    public User createUser(@RequestBody User user){
-        return userService.createUser(user.getUsername(), user.getEmail(), user.getPassword());
+    public ResponseEntity<User> createUser(@RequestBody User user){
+        User created_user = userService.createUser(user.getUsername(), user.getEmail(), user.getPassword());
+        if (created_user == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+        return ResponseEntity.ok(created_user);
     }
     //create new direct channel
     @PostMapping("/directchannels")
