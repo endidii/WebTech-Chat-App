@@ -6,7 +6,7 @@
       <div class="form-div">
         <div class="input-div">
           <p>Email</p>
-          <input v-model="email" type="email" class="user-input" id="email-input">
+          <input v-model="email" type="email" class="user-input" id="email-input" @click="resetError">
         </div>
 
         <div class="input-div">
@@ -65,11 +65,19 @@ const getUserByEmail = async () => {
   } catch (error) {
     if (error.response && error.response.status === 404) {
       errorMessage.value = "No user found with the email:";
+      const emailInput = document.getElementById('email-input');
+      if (emailInput) emailInput.style.border = '2px solid #E3505E';
     } else {
       errorMessage.value = 'An error occurred. Please try again later.';
     }
   }
 };
+
+function resetError(){
+  errorMessage.value = '';
+  const emailInput = document.getElementById('email-input');
+  if (emailInput) emailInput.style.border = "2px solid black";
+}
 </script>
 <style scoped>
 .input-div{
