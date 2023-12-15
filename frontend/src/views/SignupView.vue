@@ -4,9 +4,7 @@
       <img src="/src/assets/chat.png" class="logo_img" alt="logo-img" />
       <p class="blendr-name">blendr<span id="underscore">_</span></p>
     </div>
-
     <RegistrierungComponent></RegistrierungComponent>
-
   </div>
 </template>
 

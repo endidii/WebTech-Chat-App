@@ -45,8 +45,8 @@ public class ChatAppController {
     }
     //get user by Email
     @GetMapping("/users/email")
-    public ResponseEntity<User> getUserByEmail(@RequestBody User user) {
-        User foundUser = userService.getUserByEmail(user.getEmail());
+    public ResponseEntity<User> getUserByEmail(@RequestParam("email") String email) {
+        User foundUser = userService.getUserByEmail(email);
         if (foundUser == null) {
             // User not found, return 404 Not Found
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

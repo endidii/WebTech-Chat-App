@@ -4,7 +4,6 @@
       <img src="/src/assets/chat.png" class="logo_img" alt="logo-img" />
       <p class="blendr-name">blendr<span id="underscore">_</span></p>
     </div>
-
     <LoginComponent></LoginComponent>
   </div>
 </template>
@@ -33,7 +32,7 @@ import LoginComponent from "@/components/LoginComponent.vue";
 }
 
 .logo_img{
-  height: 90px;
+  height: 80px;
 }
 #underscore{
   font-size: 50px;
@@ -42,7 +41,7 @@ import LoginComponent from "@/components/LoginComponent.vue";
   display: flex;
   align-items: center;
   justify-content: end;
-  margin-right: 80px;
+  margin-right: 100px;
 }
 .blendr-name{
   color: white;

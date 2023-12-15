@@ -23,7 +23,7 @@
       </div>
     </form>
 
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }} <br> {{email}} </p>
   </div>
 </template>
 <script setup lang="ts">
@@ -54,14 +54,17 @@ const getUserByEmail = async () => {
   errorMessage.value = ''; // Reset error message
   user.value = null; // Reset user data
   try {
-    const response = await axios.get('/api/users/email', {
-      email: email.value
+    const response = await axios.get('http://localhost:8080/users/email',{
+      params: {
+        email: email.value,
+      }
     });
     // Handle the response, e.g., store the user data
     user.value = response.data; // Store the user data
+    console.log(user.value)
   } catch (error) {
     if (error.response && error.response.status === 404) {
-      errorMessage.value = `No user found with the email: ${email.value}`;
+      errorMessage.value = "No user found with the email:";
     } else {
       errorMessage.value = 'An error occurred. Please try again later.';
     }
@@ -143,7 +146,6 @@ const getUserByEmail = async () => {
 .login-div{
   display: flex;
   flex-direction: column;
-  width: 400px;
   align-items: center;
 }
 </style>
