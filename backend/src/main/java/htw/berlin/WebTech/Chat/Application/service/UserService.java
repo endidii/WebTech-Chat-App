@@ -11,6 +11,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User createUser(String username, String email, String password){
         User user_exists = userRepository.findUserByEmail(email);
@@ -22,7 +23,6 @@ public class UserService {
         user.setUsername(username);
         user.setEmail(email);
         // Hashing the password
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(password);
         user.setPassword(hashedPassword);
         return userRepository.save(user);
@@ -38,5 +38,18 @@ public class UserService {
 
     public User getUserByEmail(String email){
         return userRepository.findUserByEmail(email);
+    }
+
+    public User loginUser(String email, String password){
+        User user = userRepository.findUserByEmail(email);
+        if(user != null){
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 }
