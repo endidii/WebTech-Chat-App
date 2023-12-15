@@ -14,7 +14,6 @@
 .logo-div{
     display: flex;
     align-items: center;
-    margin-top: 20px;
     margin-left: 20px;
 }
 .sidebar-div{
@@ -29,13 +28,13 @@
     width: 280px;
 }
 .search-bar{
-    width: 90%;
+    width: 70%;
     height: 40px;
     border-radius: 4px;
     background-color: #222429;
     border: none;
     margin-left: 14px;
-    margin-top: 30px;
+    margin-top: 0;
     margin-bottom: 10px;
     color: white;
     font-size: 16px;
@@ -123,7 +122,6 @@
     left: 14px;
 }
 .create-channel-input{
-    width: 100%;
     height: 56px;
     margin: 0;
     background-color: #222429;

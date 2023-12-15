@@ -16,7 +16,8 @@
     <input v-model="message_content"
            :disabled="props.isInputDisabled"
            v-on:keyup.enter="postMessage(message_content)"
-           type="text" id="message-input"
+           type="text"
+           id="message-input"
            placeholder="Nachricht eingeben" />
   </div>
 </template>
@@ -97,13 +98,15 @@ onMounted(() => {
 <style scoped>
 .message-div{
   margin-left: 20px;
-  margin-top: 20px;
+  margin-top: 30px;
   display: flex;
   align-items: center;
 }
 .content{
   color: white;
   font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .user-img{
   height: 55px;
@@ -115,13 +118,18 @@ onMounted(() => {
   color: #006EDB;
   font-size: 20px;
   margin-right: 8px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.created_at{
+  margin: 0;
 }
 .message-history-div {
   overflow-y: auto; /* Enables vertical scrolling */
   max-height: calc(100vh - 70px); /* Height minus input height */
   width: 100%; /* Ensure it takes the full width */
-  margin-bottom: 90px;
-  margin-top: 130px;
+  margin-bottom: 0;
+  margin-top: 230px;
 }
 .user-date-div{
   display: flex;
@@ -136,10 +144,9 @@ onMounted(() => {
   font-size: 20px;
   padding-left: 16px;
   font-family: 'Poppins', sans-serif;
-  z-index: 2; /* Ensures the input stays above the message history */
   position: fixed; /* Keeps the input fixed */
   bottom: 20px; /* Aligns it to the bottom of the viewport */
-  width: calc(100% - 602px); /* Adjust as needed */
+  width: calc(100% - 622px);
   left: 300px; /* Adjust as needed */
   height: 50px; /* Adjust as needed */
 }
@@ -148,5 +155,13 @@ onMounted(() => {
   flex-direction: column;
   height: 100vh; /* Set the height to the full viewport height */
   justify-content: flex-end; /* Aligns children to the bottom */
+}
+@media (max-width: 1000px) {
+  #message-input {
+    width: calc(100% - 340px);
+  }
+  .message-history-div{
+    width: calc(100% + 280px);
+  }
 }
 </style>

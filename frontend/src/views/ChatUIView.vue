@@ -41,21 +41,21 @@
   <div class="memberlist-div">
     <p id="memberlist-tag">Mitgliederliste</p>
     <member :activeChannelId="activeChannelId"></member>
+
+    <div class="logged-in-div">
+      <img src="../assets/cat1.jpeg" alt="user-img" />
+      <div class="user-info-div">
+        <p id="angemeldet-als">Angemeldet als:</p>
+        <p v-if="user" id="username-p">{{ user.username }}</p>
+        <p v-if="user" id="userId-p">ID: {{ user.id }}</p>
+      </div>
+    </div>
   </div>
 
   <MessageHistory
       :isInputDisabled="isInputDisabled"
       :userData="user"
       :active-channel-id="activeChannelId"></MessageHistory>
-
-  <div class="logged-in-div">
-    <img src="../assets/cat1.jpeg" alt="user-img" />
-    <div class="user-info-div">
-      <p id="angemeldet-als">Angemeldet als:</p>
-      <p v-if="user" id="username-p">{{ user.username }}</p>
-      <p v-if="user" id="userId-p">ID: {{ user.id }}</p>
-    </div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -130,7 +130,7 @@ function onChannelButtonClicked(channel: Channel) {
     display: none;
   }
   #message-input {
-    right: 20px;
+    width: calc(100% - 570px);
   }
 }
 .hashtag{
