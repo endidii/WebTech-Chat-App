@@ -1,14 +1,11 @@
 .channel-description{
     height: 130px;
     background-color: #141419;
-    position: fixed;
-    top: 0;
-    left: 280px;
-    right: 280px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 10;
+    grid-row-start: 1;
+    grid-column-start: 2;
 }
 .channel-name{
     font-weight: bold;

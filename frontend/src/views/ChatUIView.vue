@@ -1,61 +1,63 @@
 <template>
-  <div class="sidebar-div">
-    <div class="logo-div">
-      <img src="/src/assets/chat.png" class="logo_img" alt="logo-img" />
-      <p class="app-name">blendr<span id="underscore">_</span></p>
-    </div>
+  <div class="chatUI-div">
+    <div class="sidebar-div">
+      <div class="logo-div">
+        <img src="/src/assets/chat.png" class="logo_img" alt="logo-img" />
+        <p class="app-name">blendr<span id="underscore">_</span></p>
+      </div>
 
-    <input type="text" class="search-bar" placeholder="Textkanal Beitreten" />
-    <img id="search-icon" src="../assets/search.png" alt="search-icon" />
+      <input type="text" class="search-bar" placeholder="Textkanal Beitreten" />
+      <img id="search-icon" src="../assets/search.png" alt="search-icon" />
 
-    <p class="side-tags">Textkanäle</p>
+      <p class="side-tags">Textkanäle</p>
 
-    <TextchannelButton
+      <TextchannelButton
         @channel-button-clicked="onChannelButtonClicked"
         v-if="user"
         :activeChannelId="activeChannelId"
         :user-data="user">
-    </TextchannelButton>
+      </TextchannelButton>
 
-    <p class="side-tags">Direktnachrichten</p>
+      <p class="side-tags">Direktnachrichten</p>
 
-    <button id="button1" class="chat-button">
-      <img class="user-img" src="../assets/cat2.png" alt="image" />
-      <span class="username">Tony (ereshkigal)</span>
-    </button>
+      <button id="button1" class="chat-button">
+        <img class="user-img" src="../assets/cat2.png" alt="image" />
+        <span class="username">Tony (ereshkigal)</span>
+      </button>
 
-    <button class="chat-button">
-      <img class="user-img" src="../assets/image1.png" alt="image" />
-      <span class="username">Tony (2ny)</span>
-    </button>
+      <button class="chat-button">
+        <img class="user-img" src="../assets/image1.png" alt="image" />
+        <span class="username">Tony (2ny)</span>
+      </button>
 
-    <AddDirectchannelButton v-if="user" :user-data="user"></AddDirectchannelButton>
+      <AddDirectchannelButton v-if="user" :user-data="user"></AddDirectchannelButton>
 
-    <AddChannelButton v-if="user" :user-data="user"></AddChannelButton>
-  </div>
+      <AddChannelButton v-if="user" :user-data="user"></AddChannelButton>
+    </div>
 
-  <div class="channel-description">
-    <p class="channel-name"> <span v-if="isInputDisabled === false" class="hashtag">#</span> {{channelName}}</p>
-  </div>
+    <div class="channel-description">
+      <p class="channel-name"> <span v-if="isInputDisabled === false" class="hashtag">#</span> {{channelName}}</p>
+    </div>
 
-  <div class="memberlist-div">
-    <p id="memberlist-tag">Mitgliederliste</p>
-    <member :activeChannelId="activeChannelId"></member>
-
-    <div class="logged-in-div">
-      <img src="../assets/cat1.jpeg" alt="user-img" />
-      <div class="user-info-div">
-        <p id="angemeldet-als">Angemeldet als:</p>
-        <p v-if="user" id="username-p">{{ user.username }}</p>
-        <p v-if="user" id="userId-p">ID: {{ user.id }}</p>
+    <div class="memberlist-div">
+      <p id="memberlist-tag">Mitgliederliste</p>
+      <member :activeChannelId="activeChannelId"></member>
+      <div class="logged-in-div">
+        <img src="../assets/cat1.jpeg" alt="user-img" />
+        <div class="user-info-div">
+          <p id="angemeldet-als">Angemeldet als:</p>
+          <p v-if="user" id="username-p">{{ user.username }}</p>
+          <p v-if="user" id="userId-p">ID: {{ user.id }}</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <MessageHistory
+    <MessageHistory
       :isInputDisabled="isInputDisabled"
       :userData="user"
       :active-channel-id="activeChannelId"></MessageHistory>
+  </div>
+
 </template>
 
 <script setup lang="ts">
@@ -136,5 +138,11 @@ function onChannelButtonClicked(channel: Channel) {
 .hashtag{
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
+}
+.chatUI-div{
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  grid-template-rows: [row1-start] 130px [row1-end] 1fr [line-2] 100px [last-line];
+  height: 100vh;
 }
 </style>

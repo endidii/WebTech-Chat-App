@@ -1,5 +1,4 @@
 <template>
-  <div class="message-container">
     <div class="message-history-div">
       <div class="message-div" v-for="message in messages.values()" :key="message.id">
         <img class="user-img" src="../assets/cat1.jpeg" alt="user-img" />
@@ -19,7 +18,7 @@
            type="text"
            id="message-input"
            placeholder="Nachricht eingeben" />
-  </div>
+
 </template>
 
 <script setup lang="ts">
@@ -29,7 +28,7 @@ import axios from "axios";
 type Message = {
   id: string;
   content: string;
-  date: string;
+  date: [];
   sender: User;
 }
 
@@ -63,14 +62,12 @@ function fetchMessages(channelId: string) {
   axios
     .get(`http://localhost:8080/channels/${channelId}/messages`)
     .then(response => {
-      let messageObjects = response.data.map((item: Message) => {
+      messages.value = response.data.map((item: Message) => {
         if (typeof item === 'object') {
-          // If item is an object, return the id property of the item
           console.log(item);
           return item
         }
       });
-      messages.value = messageObjects;
       console.log(messages.value);
       nextTick(() => {
         const messageHistoryDiv = document.querySelector('.message-history-div');
@@ -81,7 +78,7 @@ function fetchMessages(channelId: string) {
     });
 }
 
-watch(() => props.activeChannelId, (newChannelId, oldChannelId) => {
+watch(() => props.activeChannelId, (newChannelId) => {
   if (newChannelId) {
     fetchMessages(newChannelId);
   }
@@ -123,13 +120,14 @@ onMounted(() => {
 }
 .created_at{
   margin: 0;
+  color: white;
 }
 .message-history-div {
   overflow-y: auto; /* Enables vertical scrolling */
   max-height: calc(100vh - 70px); /* Height minus input height */
   width: 100%; /* Ensure it takes the full width */
-  margin-bottom: 0;
-  margin-top: 230px;
+  grid-row-start: 2;
+  grid-row-end: row1-end;
 }
 .user-date-div{
   display: flex;
@@ -150,18 +148,12 @@ onMounted(() => {
   left: 300px; /* Adjust as needed */
   height: 50px; /* Adjust as needed */
 }
-.message-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; /* Set the height to the full viewport height */
-  justify-content: flex-end; /* Aligns children to the bottom */
-}
 @media (max-width: 1000px) {
   #message-input {
     width: calc(100% - 340px);
   }
   .message-history-div{
-    width: calc(100% + 280px);
+    width: calc(100% + 220px);
   }
 }
 </style>
