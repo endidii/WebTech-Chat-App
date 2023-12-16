@@ -135,6 +135,7 @@
     font-size: 14px;
     padding-left: 20px;
     border-radius: 0;
+    width: 222px;
 }
 .create-channel-input:focus{
     border-color: #006EDB;

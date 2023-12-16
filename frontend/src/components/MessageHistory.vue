@@ -126,7 +126,7 @@ onMounted(() => {
 }
 .created_at{
   margin: 0;
-  color: white;
+  color: gray;
 }
 .message-history-div {
   overflow-y: auto; /* Enables vertical scrolling */

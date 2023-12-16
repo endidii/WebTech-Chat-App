@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +22,7 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final UserRepository userRepository;
     private final TextchannelRepository textchannelRepository;
+    final static DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     public Message createMessage(String userId, String channelId, String content){
         Message message = new Message();
@@ -29,7 +32,9 @@ public class MessageService {
         message.setSender(user);
         message.setContent(content);
         message.setTextchannel(textchannel);
-        message.setDate(java.time.LocalDateTime.now().withNano(0));
+        LocalDateTime ldt = LocalDateTime.now();
+        String formattedString = ldt.format(CUSTOM_FORMATTER);
+        message.setDate(formattedString);
         user.getMessages().add(message);
         return messageRepository.save(message);
     }

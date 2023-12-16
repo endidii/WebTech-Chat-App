@@ -12,6 +12,7 @@
     font-weight: bold;
     margin-left: 22px;
     margin-top: 20px;
+    margin-bottom: 30px;
 }
 .member{
     display: flex;
@@ -29,4 +30,6 @@
     color: white;
     font-size: 20px;
     margin-left: 16px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
