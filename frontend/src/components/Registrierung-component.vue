@@ -43,6 +43,7 @@ const email = ref("")
 const password = ref("")
 const emit = defineEmits(["userAdded"])
 const errorMessage = ref(''); // Error message
+const baseUrl = process.env.VUE_APP_BACKEND_BASE_URL;
 
 const onClick = async () => {
   if (username.value.trim() === '' || email.value.trim() === '' || password.value.trim() === '') {
