@@ -52,6 +52,8 @@ const password = ref('');
 const errorMessage = ref('');
 const user = ref(null);
 const emit = defineEmits(["userLoggedIn"])
+const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+
 
 const getUserByEmail = async () => {
   if (email.value.trim() === '' || password.value.trim() === '') {
@@ -61,7 +63,7 @@ const getUserByEmail = async () => {
   errorMessage.value = ''; // Reset error message
   user.value = null; // Reset user data
   try {
-    const response = await axios.get('https://blendr-backend.onrender.com/users/email',{
+    const response = await axios.get('${baseUrl}/users/email',{
       params: {
         email: email.value,
       }

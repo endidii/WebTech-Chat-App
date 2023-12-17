@@ -32,6 +32,7 @@ const id = ref("")
 const name = ref("")
 const description = ref("")
 let isOpen = ref(false)
+const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const props = defineProps({
   userData: Object
@@ -47,7 +48,7 @@ function closeModal(){
 }
 function createChannel(){
   //create channel
-  axios.post(`https://blendr-backend.onrender.com/channels/users/${props.userData?.id}`, {
+  axios.post(`${baseUrl}/channels/users/${props.userData?.id}`, {
     name: name.value,
     description: description.value
   })
@@ -58,7 +59,7 @@ function createChannel(){
     console.log("id value: "+id.value);
     console.log(response);
     //add user to channel
-    axios.post(`https://blendr-backend.onrender.com/channels/${id.value}/users/${props.userData?.id}`).then(function (response) {
+    axios.post(`${baseUrl}/channels/${id.value}/users/${props.userData?.id}`).then(function (response) {
       window.location.reload();
       console.log(response);
     })

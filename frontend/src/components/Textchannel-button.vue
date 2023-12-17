@@ -40,6 +40,7 @@ type User = {
 const emit = defineEmits(['channelButtonClicked'])
 
 let channelsForUser: Ref<Channel[]> = ref([])
+const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const props = defineProps({
   userData: Object,

@@ -45,10 +45,11 @@ const props = defineProps({
 })
 let messages: Ref<Message[]> = ref([]);
 let message_content = ref("");
+const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
 function postMessage(message: string) {
   axios
-      .post("https://blendr-backend.onrender.com/channels/" + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
+      .post("${baseUrl}/channels/" + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
           {
             content: message
           })
@@ -61,7 +62,7 @@ function postMessage(message: string) {
 
 function fetchMessages(channelId: string) {
   axios
-    .get(`https://blendr-backend.onrender.com/channels/${channelId}/messages`)
+    .get(`${baseUrl}/channels/${channelId}/messages`)
     .then(response => {
       messages.value = response.data.map((item: Message) => {
         if (typeof item === 'object') {

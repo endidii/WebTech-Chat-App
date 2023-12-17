@@ -98,11 +98,12 @@ const route = useRoute();
 const channelName = ref("");
 const activeChannelId = ref<string | undefined>(undefined);
 const isInputDisabled = ref(true);
+const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
 onMounted(() => {
   userId.value = route.params.userId as string;
   axios
-    .get("https://blendr-backend.onrender.com/users/" + userId.value)
+    .get("${baseUrl}/users/" + userId.value)
     .then((response) => {
       console.log(response.data);
       console.log(userId.value);
