@@ -1,4 +1,3 @@
-ENV SPRING_BOOT_DEBUG=true
 # Build stage
 FROM gradle:jdk21-jammy AS build
 COPY --chown=gradle:gradle . /home/gradle/src
