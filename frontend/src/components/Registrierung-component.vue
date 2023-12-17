@@ -19,7 +19,7 @@
     <input v-model="password" type="password" class="user-input" id="password-input">
   </div>
 </div>
-  
+
 <button type="button" class="register-button" @click="onClick">Registrieren</button>
 
 <div class="bereits-user-div">
@@ -43,7 +43,7 @@ const email = ref("")
 const password = ref("")
 const emit = defineEmits(["userAdded"])
 const errorMessage = ref(''); // Error message
-const baseUrl = process.env.VUE_APP_BACKEND_BASE_URL;
+const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
 const onClick = async () => {
   if (username.value.trim() === '' || email.value.trim() === '' || password.value.trim() === '') {
@@ -53,7 +53,7 @@ const onClick = async () => {
   errorMessage.value = ''; // Reset error message
   try{
     await axios
-        .post("https://blendr-backend.onrender.com/users", {
+        .post(`${baseUrl}/users`, {
           username: username.value,
           email: email.value,
           password: password.value
