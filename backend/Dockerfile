@@ -1,23 +1,15 @@
-# Use a base image with Java (specify the version you need)
-FROM openjdk:11
+#
+# Build stage
+#
+FROM gradle:jdk17-jammy AS build
+COPY --chown=gradle:gradle . /home/gradle/src
+WORKDIR /home/gradle/src
+RUN gradle build --no-daemon
 
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the gradle wrapper and other gradle files
-COPY backend/gradlew backend/gradlew.bat backend/gradle /app/
-
-# Copy the build file
-COPY backend/build.gradle backend/settings.gradle /app/
-
-# Copy the source code
-COPY backend/src /app/src
-
-# Grant execution permissions to the gradlew script
-RUN chmod +x /app/gradlew
-
-# Build the application
-RUN ./gradlew build
-
-# Run the application
-CMD ["java", "-jar", "build/libs/WebTech-Chat-App-0.0.1-SNAPSHOT.jar"]
+LABEL org.name="ProfWider"
+#
+# Package stage
+#
+FROM eclipse-temurin:17-jdk-jammy
+COPY --from=build /home/gradle/src/build/libs/WebTech-Chat-App-0.0.1-SNAPSHOT.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
