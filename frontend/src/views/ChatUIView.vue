@@ -12,6 +12,7 @@
       <p class="side-tags">Textkanäle</p>
 
       <TextchannelButton
+        :key="userKey"
         @channel-button-clicked="onChannelButtonClicked"
         v-if="user"
         :activeChannelId="activeChannelId"
@@ -70,7 +71,7 @@ import TextchannelButton from '@/components/Textchannel-button.vue'
 import AddChannelButton from '@/components/Add-Textchannel-button.vue'
 import AddDirectchannelButton from "@/components/Add-Directchannel-button.vue";
 import member from '@/components/Memberlist-member.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from "vue";
 import { useRoute } from 'vue-router';
 import axios from 'axios';
 import MessageHistory from "@/components/MessageHistory.vue";
@@ -99,6 +100,11 @@ const channelName = ref("");
 const activeChannelId = ref<string | undefined>(undefined);
 const isInputDisabled = ref(true);
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+const userKey = ref(0);
+
+watch(user, () => {
+  userKey.value++;
+}, { deep: true });
 
 onMounted(() => {
   userId.value = route.params.userId as string;
@@ -111,7 +117,13 @@ onMounted(() => {
     })
 })
 function updateUserInfo(userOutput:User){
-  user.value = userOutput;
+  axios
+    .get(`${baseUrl}/users/` + userOutput.id)
+    .then((response) => {
+      console.log(response.data);
+      console.log(userId.value);
+      user.value = response.data;
+    })
 }
 
 function onChannelButtonClicked(channel: Channel) {

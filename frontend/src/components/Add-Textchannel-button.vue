@@ -63,7 +63,6 @@ function createChannel(){
     axios.post(`${baseUrl}/channels/${id.value}/users/${props.userData?.id}`).then(function (response) {
       isOpen.value = false;
       emit("channelAdded", props.userData)
-      console.log(response);
     })
   })
   //close modal
