@@ -42,12 +42,13 @@ const emit = defineEmits(['channelButtonClicked'])
 let channelsForUser: Ref<Channel[]> = ref([])
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
+
 const props = defineProps({
   userData: Object,
   activeChannelId: String
 })
 onMounted(() => {
-  axios.get(`https://blendr-backend.onrender.com/users/${props.userData?.id}/channels`)
+  axios.get(`${baseUrl}/users/${props.userData?.id}/channels`)
     .then(response => {
       let channelIds = response.data.map((item: Channel | string) => {
         if (typeof item === 'object') {
@@ -61,7 +62,7 @@ onMounted(() => {
       // Map each channelId to a fetch promise
       const fetchPromises = channelIds.map(async (channelId: string) => {
         try {
-          const channelResponse = await axios.get(`https://blendr-backend.onrender.com/channels/${channelId}`);
+          const channelResponse = await axios.get(`${baseUrl}/channels/${channelId}`);
           return channelResponse.data;
         } catch (error) {
           console.error("Error fetching channel ${channelId}:", error);

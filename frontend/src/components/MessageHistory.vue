@@ -49,7 +49,7 @@ const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
 function postMessage(message: string) {
   axios
-      .post("${baseUrl}/channels/" + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
+      .post(`${baseUrl}/channels/` + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
           {
             content: message
           })

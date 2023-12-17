@@ -103,7 +103,7 @@ const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 onMounted(() => {
   userId.value = route.params.userId as string;
   axios
-    .get("${baseUrl}/users/" + userId.value)
+    .get(`${baseUrl}/users/` + userId.value)
     .then((response) => {
       console.log(response.data);
       console.log(userId.value);

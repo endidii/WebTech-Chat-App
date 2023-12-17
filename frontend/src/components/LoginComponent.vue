@@ -63,7 +63,7 @@ const getUserByEmail = async () => {
   errorMessage.value = ''; // Reset error message
   user.value = null; // Reset user data
   try {
-    const response = await axios.get('${baseUrl}/users/email',{
+    const response = await axios.get(`${baseUrl}/users/email`,{
       params: {
         email: email.value,
       }
