@@ -37,12 +37,15 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import router from "@/router";
+import * as process from "process";
 
 const username = ref("")
 const email = ref("")
 const password = ref("")
 const emit = defineEmits(["userAdded"])
 const errorMessage = ref(''); // Error message
+const baseUrl = process.env.VUE_APP_BACKEND_BASE_URL
+const endpoint = baseUrl + "/users"
 
 const onClick = async () => {
   if (username.value.trim() === '' || email.value.trim() === '' || password.value.trim() === '') {
@@ -52,7 +55,7 @@ const onClick = async () => {
   errorMessage.value = ''; // Reset error message
   try{
     await axios
-        .post("http://localhost:8080/users", {
+        .post(endpoint, {
           username: username.value,
           email: email.value,
           password: password.value
