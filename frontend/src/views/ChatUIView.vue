@@ -32,7 +32,7 @@
 
       <AddDirectchannelButton v-if="user" :user-data="user"></AddDirectchannelButton>
 
-      <AddChannelButton v-if="user" :user-data="user"></AddChannelButton>
+      <AddChannelButton v-if="user" :user-data="user" @channelAdded="updateUserInfo"></AddChannelButton>
     </div>
 
     <div class="channel-description">
@@ -110,6 +110,9 @@ onMounted(() => {
       user.value = response.data;
     })
 })
+function updateUserInfo(userOutput:User){
+  user.value = userOutput;
+}
 
 function onChannelButtonClicked(channel: Channel) {
   console.log("channel-button clicked, id: " + channel.id)

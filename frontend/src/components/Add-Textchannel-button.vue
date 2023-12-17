@@ -33,6 +33,7 @@ const name = ref("")
 const description = ref("")
 let isOpen = ref(false)
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+const emit = defineEmits(["channelAdded"])
 
 const props = defineProps({
   userData: Object
@@ -60,7 +61,8 @@ function createChannel(){
     console.log(response);
     //add user to channel
     axios.post(`${baseUrl}/channels/${id.value}/users/${props.userData?.id}`).then(function (response) {
-      window.location.reload();
+      isOpen.value = false;
+      emit("channelAdded", props.userData)
       console.log(response);
     })
   })
