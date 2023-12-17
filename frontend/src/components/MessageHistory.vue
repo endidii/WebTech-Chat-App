@@ -48,7 +48,7 @@ let message_content = ref("");
 
 function postMessage(message: string) {
   axios
-      .post("http://localhost:8080/channels/" + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
+      .post("https://blendr-backend.onrender.com/channels/" + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
           {
             content: message
           })
@@ -61,7 +61,7 @@ function postMessage(message: string) {
 
 function fetchMessages(channelId: string) {
   axios
-    .get(`http://localhost:8080/channels/${channelId}/messages`)
+    .get(`https://blendr-backend.onrender.com/channels/${channelId}/messages`)
     .then(response => {
       messages.value = response.data.map((item: Message) => {
         if (typeof item === 'object') {

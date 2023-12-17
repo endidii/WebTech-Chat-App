@@ -52,7 +52,7 @@ const onClick = async () => {
   errorMessage.value = ''; // Reset error message
   try{
     await axios
-        .post("http://localhost:8080/users", {
+        .post("https://blendr-backend.onrender.com/users", {
           username: username.value,
           email: email.value,
           password: password.value

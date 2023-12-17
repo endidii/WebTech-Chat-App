@@ -61,7 +61,7 @@ const getUserByEmail = async () => {
   errorMessage.value = ''; // Reset error message
   user.value = null; // Reset user data
   try {
-    const response = await axios.get('http://localhost:8080/users/email',{
+    const response = await axios.get('https://blendr-backend.onrender.com/users/email',{
       params: {
         email: email.value,
       }

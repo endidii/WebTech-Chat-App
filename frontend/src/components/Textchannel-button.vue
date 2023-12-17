@@ -46,7 +46,7 @@ const props = defineProps({
   activeChannelId: String
 })
 onMounted(() => {
-  axios.get(`http://localhost:8080/users/${props.userData?.id}/channels`)
+  axios.get(`https://blendr-backend.onrender.com/users/${props.userData?.id}/channels`)
     .then(response => {
       let channelIds = response.data.map((item: Channel | string) => {
         if (typeof item === 'object') {
@@ -60,7 +60,7 @@ onMounted(() => {
       // Map each channelId to a fetch promise
       const fetchPromises = channelIds.map(async (channelId: string) => {
         try {
-          const channelResponse = await axios.get(`http://localhost:8080/channels/${channelId}`);
+          const channelResponse = await axios.get(`https://blendr-backend.onrender.com/channels/${channelId}`);
           return channelResponse.data;
         } catch (error) {
           console.error("Error fetching channel ${channelId}:", error);

@@ -21,7 +21,7 @@ let users: Ref<User[]> = ref([]);
 
 function fetchMembers(userId: string) {
   axios
-    .get(`http://localhost:8080/channels/${userId}/users`)
+    .get(`https://blendr-backend.onrender.com/channels/${userId}/users`)
     .then(response => {
       let userIds = response.data.map((item: User | string) => {
         if (typeof item === 'object') {
@@ -35,7 +35,7 @@ function fetchMembers(userId: string) {
       // Map each userId to a fetch promise
       const fetchPromises = userIds.map(async (userId: string) => {
         try {
-          const userResponse = await axios.get(`http://localhost:8080/users/${userId}`);
+          const userResponse = await axios.get(`https://blendr-backend.onrender.com/users/${userId}`);
           return userResponse.data;
         } catch (error) {
           console.error("Error fetching user ${userId}:", error);

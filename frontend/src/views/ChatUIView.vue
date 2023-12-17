@@ -102,7 +102,7 @@ const isInputDisabled = ref(true);
 onMounted(() => {
   userId.value = route.params.userId as string;
   axios
-    .get("http://localhost:8080/users/" + userId.value)
+    .get("https://blendr-backend.onrender.com/users/" + userId.value)
     .then((response) => {
       console.log(response.data);
       console.log(userId.value);
