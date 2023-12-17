@@ -62,7 +62,7 @@ const onClick = async () => {
           router.push({ name: 'ChatUI', params: { userId: response.data.id, }})
           emit("userAdded", response.data)
         })
-  } catch (error) {
+  } catch (error:any) {
     if (error.response && error.response.status === 403) {
       errorMessage.value = "User already exists with this email:";
       const emailInput = document.getElementById('email-input');

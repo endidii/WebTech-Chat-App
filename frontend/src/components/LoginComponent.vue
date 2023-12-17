@@ -29,6 +29,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import axios from "axios";
+type Channel = {
+  id: string;
+  name: string;
+  description: string;
+  users: User[];
+  messages: any[];
+};
 
 type User = {
   id: string;
@@ -62,7 +69,7 @@ const getUserByEmail = async () => {
     // Handle the response, e.g., store the user data
     user.value = response.data; // Store the user data
     console.log(user.value)
-  } catch (error) {
+  } catch (error:any) {
     if (error.response && error.response.status === 404) {
       errorMessage.value = "No user found with the email:";
       const emailInput = document.getElementById('email-input');
