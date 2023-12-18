@@ -119,6 +119,11 @@ public class ChatAppController {
         return textchannelService.getTextchannelByName(name);
     }
 
+    @PostMapping("/channels/name/{channelName}/users/{userId}")
+    public void addUserToChannelByName(@PathVariable("channelName") String channelName, @PathVariable("userId") String userId){
+        textchannelService.addUserToChannelByName(channelName, userId);
+    }
+
     @GetMapping("/")
     public String getHello(){
         return "Hello World";

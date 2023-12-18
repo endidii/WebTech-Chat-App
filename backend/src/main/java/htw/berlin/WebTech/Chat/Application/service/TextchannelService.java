@@ -58,4 +58,12 @@ public class TextchannelService {
         return textchannelRepository.findTextchannelByName(name.replace(" ", "-"));
     }
 
+    public void addUserToChannelByName(String channelName, String userId){
+        User user = userRepository.findUserById(userId);
+        Textchannel textchannel = textchannelRepository.findTextchannelByName(channelName.replace(" ", "-"));
+
+        textchannel.getUsers().add(user);
+        textchannelRepository.save(textchannel);
+    }
+
 }

@@ -75,7 +75,7 @@ function createChannel(){
 /* The Modal (background) */
 .modal {
   position: fixed;
-  z-index: 10;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
@@ -84,7 +84,12 @@ function createChannel(){
   background-color: rgba(0,0,0,0.4);
   font-family: 'Poppins', sans-serif;
 }
-
+.name-description-div{
+  width: 100%;
+}
+.input-tag{
+  margin: 10px 0 0 0;
+}
 .modal-content {
   background-color: white;
   margin: 15% auto; /* 15% from the top and centered */
@@ -129,7 +134,7 @@ function createChannel(){
 .user-input{
   margin: 10px 0 10px 0;
   padding: 10px 0 10px 10px;
-  width: 100%;
+  width: 96%;
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
 }
