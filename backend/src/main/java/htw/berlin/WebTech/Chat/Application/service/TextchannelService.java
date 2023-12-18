@@ -87,6 +87,9 @@ public class TextchannelService {
             textchannelRepository.save(textchannel);
         }
     }
+    public void deleteAllTextchannels() {
+        textchannelRepository.deleteAll();
+    }
 
 
 }

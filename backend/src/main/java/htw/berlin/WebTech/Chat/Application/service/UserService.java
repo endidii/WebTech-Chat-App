@@ -1,10 +1,13 @@
 package htw.berlin.WebTech.Chat.Application.service;
 
+import htw.berlin.WebTech.Chat.Application.model.Textchannel;
 import htw.berlin.WebTech.Chat.Application.model.User;
 import htw.berlin.WebTech.Chat.Application.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -51,5 +54,15 @@ public class UserService {
         } else {
             return null;
         }
+    }
+    public void deleteAllMessagesFromUsers() {
+        List<User> allUsers = userRepository.findAll();
+        for (User user : allUsers) {
+            user.getMessages().clear(); // Clear the messages from the textchannel
+            userRepository.save(user);
+        }
+    }
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
     }
 }

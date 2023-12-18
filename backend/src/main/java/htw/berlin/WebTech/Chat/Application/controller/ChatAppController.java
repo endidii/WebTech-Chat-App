@@ -142,7 +142,11 @@ public class ChatAppController {
     @DeleteMapping("/textchannels/delete-all-messages")
     public ResponseEntity<?> deleteAllMessagesFromTextchannels() {
         textchannelService.deleteAllMessagesFromTextchannels();
-        return ResponseEntity.ok("All messages from every textchannel have been deleted.");
+        userService.deleteAllMessagesFromUsers();
+        messageService.deleteAllMessages();
+        userService.deleteAllUsers();
+        textchannelService.deleteAllTextchannels();
+        return ResponseEntity.ok("All messages from every textchannel and user have been deleted.");
     }
 
 }
