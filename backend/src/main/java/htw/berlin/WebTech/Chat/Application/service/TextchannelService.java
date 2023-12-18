@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class TextchannelService {
     private final TextchannelRepository textchannelRepository;
     private final UserRepository userRepository;
+    private final MessageRepository messageRepository;
 
     public Textchannel createTextchannel(String name, String description, String userId){
         Textchannel findTextchannel = textchannelRepository.findTextchannelByName(name.replace(" ", "-"));
@@ -76,6 +78,14 @@ public class TextchannelService {
         textchannel.getUsers().remove(user);
         userRepository.save(user);
         textchannelRepository.save(textchannel);
+    }
+
+    public void deleteAllMessagesFromTextchannels() {
+        List<Textchannel> allTextchannels = textchannelRepository.findAll();
+        for (Textchannel textchannel : allTextchannels) {
+            textchannel.getMessages().clear(); // Clear the messages from the textchannel
+            textchannelRepository.save(textchannel);
+        }
     }
 
 
