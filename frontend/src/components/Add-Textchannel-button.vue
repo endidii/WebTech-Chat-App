@@ -5,7 +5,7 @@
 
   <form v-if="isOpen" class="modal">
     <div class="modal-content">
-      <span @click="closeModal" class="close">&times;</span>
+      <span @click="closeModal" class="close">&#10005;</span>
       <p class="header">Textkanal erstellen</p>
         <div class="name-description-div">
           <div class="input-div">
@@ -18,7 +18,7 @@
             <input v-model="description" type="text" class="user-input" id="description-input">
           </div>
         </div>
-      <button class="create-channel-button" @click="createChannel" type="submit">Textkanal erstellen</button>
+      <button class="create-channel-button" @click="createChannel" type="button">Textkanal erstellen</button>
     </div>
   </form>
 
@@ -48,6 +48,10 @@ function closeModal(){
   console.log("Modal isOpen: " + isOpen.value)
 }
 function createChannel(){
+  if (name.value.trim() === '') {
+    alert('Bitte gebe einen Namen ein!');
+    return;
+  }
   //create channel
   axios.post(`${baseUrl}/channels/users/${props.userData?.id}`, {
     name: name.value,
@@ -55,7 +59,7 @@ function createChannel(){
   })
   .then(function (response) {
     id.value = response.data.id;
-    name.value = response.data.name;
+    name.value = "";
     description.value = response.data.description;
     console.log("id value: "+id.value);
     console.log(response);
@@ -100,14 +104,12 @@ function createChannel(){
   color: black;
 }
 .close {
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
 }
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
+.close:hover {
+  opacity: 1;
   cursor: pointer;
 }
 .create-channel-button{
@@ -117,7 +119,7 @@ function createChannel(){
   padding: 10px 20px;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
-  margin-top: 10px;
+  margin-top: 30px;
   width: 100%;
 }
 .create-channel-button:hover{

@@ -41,7 +41,7 @@
     </div>
 
     <div class="channel-description">
-      <p class="channel-name"> <span v-if="isInputDisabled === false" class="hashtag">#</span> {{channelName}}</p>
+      <p class="channel-name"> <span v-if="!isInputDisabled" class="hashtag">#</span> {{channelName}}</p>
     </div>
 
     <div class="memberlist-div">

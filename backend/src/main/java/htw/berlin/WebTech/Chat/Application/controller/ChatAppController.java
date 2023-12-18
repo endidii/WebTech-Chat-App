@@ -30,13 +30,24 @@ public class ChatAppController {
 
     //create new user
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<?> createUser(@RequestBody User user){
         User created_user = userService.createUser(user.getUsername(), user.getEmail(), user.getPassword());
         if (created_user == null) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User already exists");
         }
         return ResponseEntity.ok(created_user);
     }
+
+    //create new channel
+    @PostMapping("/channels/users/{userId}")
+    public ResponseEntity<?> createTextchannel(@RequestBody Textchannel textchannel, @PathVariable("userId") String userId){
+        Textchannel created_textchannel = textchannelService.createTextchannel(textchannel.getName(), textchannel.getDescription(), userId);
+        if (created_textchannel == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Channel already exists");
+        }
+        return ResponseEntity.ok(created_textchannel);
+    }
+
     //create new direct channel
     @PostMapping("/directchannels")
     public Directchannel createDirectchannel(String userId1, String userId2){
@@ -57,12 +68,6 @@ public class ChatAppController {
         }
         // User found, return 200 OK with the user data
         return ResponseEntity.ok(foundUser);
-    }
-
-    //create new channel
-    @PostMapping("/channels/users/{userId}")
-    public Textchannel createTextchannel(@RequestBody Textchannel textchannel, @PathVariable("userId") String userId){
-        return textchannelService.createTextchannel(textchannel.getName(), textchannel.getDescription(), userId);
     }
 
     //add new user to channel
@@ -128,4 +133,11 @@ public class ChatAppController {
     public String getHello(){
         return "Hello World";
     }
+
+    @DeleteMapping("/channels/{channelId}/users/{userId}")
+    public ResponseEntity<?> removeUserFromChannel(@PathVariable("channelId") String channelId, @PathVariable("userId") String userId) {
+        textchannelService.removeUserFromTextchannel(userId, channelId);
+        return ResponseEntity.ok().build();
+    }
+
 }

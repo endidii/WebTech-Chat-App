@@ -20,6 +20,10 @@ public class TextchannelService {
     private final UserRepository userRepository;
 
     public Textchannel createTextchannel(String name, String description, String userId){
+        Textchannel findTextchannel = textchannelRepository.findTextchannelByName(name.replace(" ", "-"));
+        if(findTextchannel != null) {
+            return null;
+        }
         Textchannel textchannel = new Textchannel();
         textchannel.setId(UUID.randomUUID().toString().substring(0,5));
         textchannel.setName(name.replace(" ", "-"));
@@ -65,5 +69,14 @@ public class TextchannelService {
         textchannel.getUsers().add(user);
         textchannelRepository.save(textchannel);
     }
+    public void removeUserFromTextchannel(String userId, String channelId) {
+        User user = userRepository.findUserById(userId);
+        Textchannel textchannel = textchannelRepository.findTextchannelById(channelId);
+        user.getTextchannels().remove(textchannel);
+        textchannel.getUsers().remove(user);
+        userRepository.save(user);
+        textchannelRepository.save(textchannel);
+    }
+
 
 }
