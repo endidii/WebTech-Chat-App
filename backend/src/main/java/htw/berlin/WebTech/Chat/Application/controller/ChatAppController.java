@@ -148,5 +148,15 @@ public class ChatAppController {
         textchannelService.deleteAllTextchannels();
         return ResponseEntity.ok("All messages from every textchannel and user have been deleted.");
     }
+    //Login user
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
+        try {
+            User loggedInUser = userService.loginUser(user.getEmail(), user.getPassword());
+            return ResponseEntity.ok(loggedInUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
+    }
 
 }
