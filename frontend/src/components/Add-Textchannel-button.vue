@@ -5,7 +5,10 @@
 
   <form v-if="isOpen" class="modal">
     <div class="modal-content">
-      <p class="header">Textkanal erstellen <span @click="closeModal" class="close">&#10005;</span></p>
+      <div class="header-div">
+        <p class="header">Textkanal erstellen</p>
+        <span @click="closeModal" class="close">&#10005;</span>
+      </div>
         <div class="name-description-div">
           <div class="input-div">
             <p class="input-tag">Name</p>
@@ -106,6 +109,8 @@ function createChannel(){
   width: 32px;
   height: 32px;
   opacity: 0.3;
+  font-size: 20px;
+  margin: 0;
 }
 .close:hover {
   opacity: 1;
@@ -128,6 +133,7 @@ function createChannel(){
 .header{
   font-size: 30px;
   font-weight: bold;
+  margin: 20px 0 20px 0;
 }
 .input-tag{
   font-size: 20px;
@@ -144,5 +150,11 @@ function createChannel(){
   border-color: gray;
   border-width: 1px;
   height: 20px;
+}
+.header-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

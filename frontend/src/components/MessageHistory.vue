@@ -47,17 +47,18 @@ let messages: Ref<Message[]> = ref([]);
 let message_content = ref("");
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
-function postMessage(message: string) {
-  axios
-      .post(`${baseUrl}/channels/` + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
+async function postMessage(message: string) {
+  if (message.trim() === '') {
+    alert('Bitte gebe eine Nachricht ein!');
+    return;
+  }
+  await axios.post(`${baseUrl}/channels/` + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
           {
             content: message
           })
-      .then(() => {
-        message_content.value = "";
-        fetchMessages(props.activeChannelId as string);
-        console.log(message);
-      })
+  message_content.value = "";
+  await fetchMessages(props.activeChannelId as string);
+  console.log(message);
 }
 
 async function fetchMessages(channelId: string) {
