@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <button type="button" class="register-button" @click="getUserByEmail">Anmelden</button>
+      <button type="button" class="register-button" @click="login">Anmelden</button>
 
       <div class="bereits-user-div">
         <p>Du hast kein Konto?</p>
@@ -23,12 +23,13 @@
       </div>
     </form>
 
-    <p v-if="errorMessage" class="error-message">{{ errorMessage }} <br> {{email}} </p>
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }} </p>
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
 import axios from "axios";
+import router from "@/router";
 type Channel = {
   id: string;
   name: string;
@@ -55,27 +56,26 @@ const emit = defineEmits(["userLoggedIn"])
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
 
-const getUserByEmail = async () => {
+const login = async () => {
   if (email.value.trim() === '' || password.value.trim() === '') {
     alert('Please fill in all fields');
     return;
   }
   errorMessage.value = ''; // Reset error message
   user.value = null; // Reset user data
+  resetError();
   try {
-    const response = await axios.get(`${baseUrl}/users/email`,{
-      params: {
+    const response = await axios.post(`${baseUrl}/login`,{
         email: email.value,
-      }
-    });
-    // Handle the response, e.g., store the user data
-    user.value = response.data; // Store the user data
-    console.log(user.value)
+        password: password.value
+      });
+    await router.push({name: 'ChatUI', params: {userId: response.data.id,}})
   } catch (error:any) {
-    if (error.response && error.response.status === 404) {
-      errorMessage.value = "No user found with the email:";
+    if (error.response && error.response.status === 401) {
+      errorMessage.value = error.response.data;
       const emailInput = document.getElementById('email-input');
       if (emailInput) emailInput.style.border = '2px solid #E3505E';
+      console.log(error.response.data);
     } else {
       errorMessage.value = 'An error occurred. Please try again later.';
     }
@@ -85,7 +85,9 @@ const getUserByEmail = async () => {
 function resetError(){
   errorMessage.value = '';
   const emailInput = document.getElementById('email-input');
+  const passwordInput = document.getElementById('password-input');
   if (emailInput) emailInput.style.border = "2px solid black";
+  if (passwordInput) passwordInput.style.border = "2px solid black";
 }
 </script>
 <style scoped>
