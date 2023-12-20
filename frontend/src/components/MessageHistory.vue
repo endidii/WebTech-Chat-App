@@ -47,38 +47,59 @@ let messages: Ref<Message[]> = ref([]);
 let message_content = ref("");
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
-function postMessage(message: string) {
-  axios
-      .post(`${baseUrl}/channels/` + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
+async function postMessage(message: string) {
+  if (message.trim() === '') {
+    alert('Bitte gebe eine Nachricht ein!');
+    return;
+  }
+  await axios.post(`${baseUrl}/channels/` + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
           {
             content: message
           })
-      .then(() => {
-        message_content.value = "";
-        fetchMessages(props.activeChannelId as string);
-        console.log(message);
-      })
+  message_content.value = "";
+  await fetchMessages(props.activeChannelId as string);
+  console.log(message);
 }
 
-function fetchMessages(channelId: string) {
-  axios
-    .get(`${baseUrl}/channels/${channelId}/messages`)
-    .then(response => {
-      messages.value = response.data.map((item: Message) => {
-        if (typeof item === 'object') {
-          console.log(item);
-          return item
-        }
-      });
-      console.log(messages.value);
-      nextTick(() => {
-        const messageHistoryDiv = document.querySelector('.message-history-div');
-        if (messageHistoryDiv) {
-          messageHistoryDiv.scrollTop = messageHistoryDiv.scrollHeight;
-        }
-      });
-    });
+async function fetchMessages(channelId: string) {
+  try {
+    const response = await axios.get(`${baseUrl}/channels/${channelId}/messages`);
+
+    // Create a new array to store the updated messages
+    const updatedMessages = [];
+
+    for (const message of response.data) {
+      // Skip if the item is not an object
+      if (typeof message !== 'object') continue;
+
+      try {
+        // Fetch user data for each message
+        const userResponse = await axios.get(`${baseUrl}/users/${message.sender}`);
+        const username = userResponse.data.username;
+
+        // Replace sender ID with username
+        updatedMessages.push({ ...message, sender: username });
+      } catch (userError) {
+        console.error('Error fetching user data:', userError);
+        // Push the original message if there's an error fetching user data
+        updatedMessages.push(message);
+      }
+    }
+
+    // Update messages with the new array containing usernames
+    messages.value = updatedMessages;
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+  }
+
+  await nextTick(() => {
+    const messageHistoryDiv = document.querySelector('.message-history-div');
+    if (messageHistoryDiv) {
+      messageHistoryDiv.scrollTop = messageHistoryDiv.scrollHeight;
+    }
+  });
 }
+
 
 watch(() => props.activeChannelId, (newChannelId) => {
   if (newChannelId) {

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,8 +19,13 @@ import java.util.UUID;
 public class TextchannelService {
     private final TextchannelRepository textchannelRepository;
     private final UserRepository userRepository;
+    private final MessageRepository messageRepository;
 
     public Textchannel createTextchannel(String name, String description, String userId){
+        Textchannel findTextchannel = textchannelRepository.findTextchannelByName(name.replace(" ", "-"));
+        if(findTextchannel != null) {
+            return null;
+        }
         Textchannel textchannel = new Textchannel();
         textchannel.setId(UUID.randomUUID().toString().substring(0,5));
         textchannel.setName(name.replace(" ", "-"));
@@ -57,5 +63,33 @@ public class TextchannelService {
     public Textchannel getTextchannelByName(String name) {
         return textchannelRepository.findTextchannelByName(name.replace(" ", "-"));
     }
+
+    public void addUserToChannelByName(String channelName, String userId){
+        User user = userRepository.findUserById(userId);
+        Textchannel textchannel = textchannelRepository.findTextchannelByName(channelName.replace(" ", "-"));
+
+        textchannel.getUsers().add(user);
+        textchannelRepository.save(textchannel);
+    }
+    public void removeUserFromTextchannel(String userId, String channelId) {
+        User user = userRepository.findUserById(userId);
+        Textchannel textchannel = textchannelRepository.findTextchannelById(channelId);
+        user.getTextchannels().remove(textchannel);
+        textchannel.getUsers().remove(user);
+        userRepository.save(user);
+        textchannelRepository.save(textchannel);
+    }
+
+    public void deleteAllMessagesFromTextchannels() {
+        List<Textchannel> allTextchannels = textchannelRepository.findAll();
+        for (Textchannel textchannel : allTextchannels) {
+            textchannel.getMessages().clear(); // Clear the messages from the textchannel
+            textchannelRepository.save(textchannel);
+        }
+    }
+    public void deleteAllTextchannels() {
+        textchannelRepository.deleteAll();
+    }
+
 
 }

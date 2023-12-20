@@ -5,8 +5,10 @@
 
   <form v-if="isOpen" class="modal">
     <div class="modal-content">
-      <span @click="closeModal" class="close">&times;</span>
-      <p class="header">Textkanal erstellen</p>
+      <div class="header-div">
+        <p class="header">Textkanal erstellen</p>
+        <span @click="closeModal" class="close">&#10005;</span>
+      </div>
         <div class="name-description-div">
           <div class="input-div">
             <p class="input-tag">Name</p>
@@ -18,7 +20,7 @@
             <input v-model="description" type="text" class="user-input" id="description-input">
           </div>
         </div>
-      <button class="create-channel-button" @click="createChannel" type="submit">Textkanal erstellen</button>
+      <button class="create-channel-button" @click="createChannel" type="button">Textkanal erstellen</button>
     </div>
   </form>
 
@@ -48,6 +50,10 @@ function closeModal(){
   console.log("Modal isOpen: " + isOpen.value)
 }
 function createChannel(){
+  if (name.value.trim() === '') {
+    alert('Bitte gebe einen Namen ein!');
+    return;
+  }
   //create channel
   axios.post(`${baseUrl}/channels/users/${props.userData?.id}`, {
     name: name.value,
@@ -55,7 +61,7 @@ function createChannel(){
   })
   .then(function (response) {
     id.value = response.data.id;
-    name.value = response.data.name;
+    name.value = "";
     description.value = response.data.description;
     console.log("id value: "+id.value);
     console.log(response);
@@ -75,7 +81,7 @@ function createChannel(){
 /* The Modal (background) */
 .modal {
   position: fixed;
-  z-index: 10;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
@@ -84,7 +90,12 @@ function createChannel(){
   background-color: rgba(0,0,0,0.4);
   font-family: 'Poppins', sans-serif;
 }
-
+.name-description-div{
+  width: 100%;
+}
+.input-tag{
+  margin: 10px 0 0 0;
+}
 .modal-content {
   background-color: white;
   margin: 15% auto; /* 15% from the top and centered */
@@ -95,14 +106,14 @@ function createChannel(){
   color: black;
 }
 .close {
-  color: #aaa;
-  font-size: 28px;
-  font-weight: bold;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+  font-size: 20px;
+  margin: 0;
 }
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
+.close:hover {
+  opacity: 1;
   cursor: pointer;
 }
 .create-channel-button{
@@ -112,8 +123,9 @@ function createChannel(){
   padding: 10px 20px;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
-  margin-top: 10px;
+  margin-top: 30px;
   width: 100%;
+  border-radius: 4px;
 }
 .create-channel-button:hover{
   cursor: pointer;
@@ -121,6 +133,7 @@ function createChannel(){
 .header{
   font-size: 30px;
   font-weight: bold;
+  margin: 20px 0 20px 0;
 }
 .input-tag{
   font-size: 20px;
@@ -129,8 +142,19 @@ function createChannel(){
 .user-input{
   margin: 10px 0 10px 0;
   padding: 10px 0 10px 10px;
-  width: 100%;
+  width: 96%;
   font-family: 'Poppins', sans-serif;
   font-size: 18px;
+  border-radius: 4px;
+  border-style: solid;
+  border-color: gray;
+  border-width: 1px;
+  height: 20px;
+}
+.header-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

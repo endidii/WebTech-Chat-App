@@ -6,7 +6,11 @@
         <p class="app-name">blendr<span id="underscore">_</span></p>
       </div>
 
-      <input type="text" class="search-bar" placeholder="Textkanal Beitreten" />
+      <input v-on:keyup.enter="addUserToChannel(channelNameInput)"
+             v-model="channelNameInput"
+             type="text" class="search-bar"
+             placeholder="Textkanal Beitreten" />
+
       <img id="search-icon" src="../assets/search.png" alt="search-icon" />
 
       <p class="side-tags">Textkanäle</p>
@@ -37,7 +41,7 @@
     </div>
 
     <div class="channel-description">
-      <p class="channel-name"> <span v-if="isInputDisabled === false" class="hashtag">#</span> {{channelName}}</p>
+      <p class="channel-name"> <span v-if="!isInputDisabled" class="hashtag">#</span> {{channelName}}</p>
     </div>
 
     <div class="memberlist-div">
@@ -101,6 +105,7 @@ const activeChannelId = ref<string | undefined>(undefined);
 const isInputDisabled = ref(true);
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 const userKey = ref(0);
+const channelNameInput = ref("");
 
 watch(user, () => {
   userKey.value++;
@@ -132,6 +137,16 @@ function onChannelButtonClicked(channel: Channel) {
   activeChannelId.value = channel.id;
   isInputDisabled.value = false;
   console.log("enableInput")
+}
+function addUserToChannel(channelName:string){
+  axios
+    .post(`${baseUrl}/channels/name/` + channelName + "/users/" + userId.value)
+    .then(() => {
+      console.log("user added to channel")
+      updateUserInfo(user.value)
+      channelNameInput.value = "";
+    })
+
 }
 </script>
 

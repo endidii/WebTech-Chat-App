@@ -47,4 +47,8 @@ public class MessageService {
         return messageRepository.findMessagesByTextchannelId(channelId);
     }
 
+    public void deleteAllMessages() {
+        messageRepository.deleteAll();
+    }
+
 }

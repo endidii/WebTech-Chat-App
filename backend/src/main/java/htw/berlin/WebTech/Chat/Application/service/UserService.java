@@ -1,10 +1,15 @@
 package htw.berlin.WebTech.Chat.Application.service;
 
+import htw.berlin.WebTech.Chat.Application.exception.InvalidPasswordException;
+import htw.berlin.WebTech.Chat.Application.exception.UserNotFoundException;
+import htw.berlin.WebTech.Chat.Application.model.Textchannel;
 import htw.berlin.WebTech.Chat.Application.model.User;
 import htw.berlin.WebTech.Chat.Application.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -42,14 +47,20 @@ public class UserService {
 
     public User loginUser(String email, String password){
         User user = userRepository.findUserByEmail(email);
-        if(user != null){
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                return user;
-            } else {
-                return null;
-            }
-        } else {
-            return null;
+        if (user == null)
+            throw new UserNotFoundException("User with email " + email + " does not exist.");
+        if (!passwordEncoder.matches(password, user.getPassword()))
+            throw new InvalidPasswordException("Invalid password for email " + email);
+        return user;
+    }
+    public void deleteAllMessagesFromUsers() {
+        List<User> allUsers = userRepository.findAll();
+        for (User user : allUsers) {
+            user.getMessages().clear(); // Clear the messages from the textchannel
+            userRepository.save(user);
         }
+    }
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
     }
 }
