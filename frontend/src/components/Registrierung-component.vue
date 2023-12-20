@@ -45,7 +45,7 @@ const emit = defineEmits(["userAdded"])
 const errorMessage = ref(''); // Error message
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
-const onClick = async () => {
+async function onClick(){
   if (username.value.trim() === '' || email.value.trim() === '' || password.value.trim() === '') {
     alert('Please fill in all fields');
     return;
