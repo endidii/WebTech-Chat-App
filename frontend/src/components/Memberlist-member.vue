@@ -1,7 +1,7 @@
 <template>
   <div class="member" v-for="user in users.values()" :key="user.id">
     <img class="user-img" src="../assets/cat1.jpeg" alt="user-img" />
-    <p class="username">{{user.username}}</p>
+    <p :class="['username', { 'creator-name': user.id === creatorId }]">{{user.username}}</p>
   </div>
 </template>
 
@@ -19,10 +19,22 @@ const props = defineProps({
 })
 let users: Ref<User[]> = ref([]);
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+let creatorId: Ref<string | null> = ref(null);
 
-function fetchMembers(userId: string) {
+function getTextchannel(channelId: string) {
   axios
-    .get(`${baseUrl}/channels/${userId}/users`)
+    .get(`${baseUrl}/channels/${channelId}`)
+    .then(response => {
+      console.log(response.data);
+      creatorId.value = response.data.creatorId; // Set the creatorId
+      return response.data;
+    });
+}
+
+function fetchMembers(channelId: string) {
+  getTextchannel(channelId);
+  axios
+    .get(`${baseUrl}/channels/${channelId}/users`)
     .then(response => {
       let userIds = response.data.map((item: User | string) => {
         if (typeof item === 'object') {
@@ -48,6 +60,7 @@ function fetchMembers(userId: string) {
         // Filter out any null values and update channelsForUser
         users.value = userData.filter(user => user !== null);
       });
+
     });
 }
 
