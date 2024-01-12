@@ -38,7 +38,7 @@
 
       <member :activeChannelId="activeChannelId"></member>
 
-        <UserPopup :visible="showPopup" @update:visible="showPopup = $event" />
+        <UserPopup :userId="userId" :visible="showPopup" @update:visible="showPopup = $event" />
         <button class="logged-in-button" @click="togglePopup" >
           <div class="logged-in-div">
             <img src="../assets/cat1.jpeg" alt="user-img" />
