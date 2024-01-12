@@ -167,7 +167,6 @@ public class ChatAppController {
         }
         // User found, return 200 OK with the user data
         userService.deleteUserByEmail(email);
-        return ResponseEntity.ok(foundUser);
+        return ResponseEntity.ok("User with email " + email + " has been deleted.");
     }
-
 }

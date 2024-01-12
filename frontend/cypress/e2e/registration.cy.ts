@@ -2,6 +2,8 @@
 // oder test user anlegen und dann löschen
 // javascript library benutzen für random email generator
 
+import axios from "axios";
+
 describe('registers a user', () => {
   it('registers a user and shows ChatUI', () => {
     cy.viewport(1920, 1080)
@@ -18,6 +20,10 @@ describe('registers a user', () => {
     cy.get('.register-button').click();
 
     cy.url().should('include', '/users');
+
+    axios.delete("http://localhost:8080/users/email", { params: {
+        email: "max123@gmail.com"
+      }})
   })
 });
 

@@ -25,14 +25,25 @@ public class Textchannel {
     @NotNull
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @NotNull
+    private String creatorId;
+
+    @ManyToMany()
     private List<User> users;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany()
     private List<Message> messages;
 
     public String getId() {
         return id;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 
     public void setId(String id) {
