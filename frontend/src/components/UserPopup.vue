@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts">
-// Props and methods for the pop-up
 import router from "@/router";
 import axios from "axios";
 
@@ -18,7 +17,6 @@ const props = defineProps({
 const emit = defineEmits(['update:visible']);
 
 function deleteAccount() {
-  // Logic for deleting the account
   axios.delete("http://localhost:8080/users/"+props.userId).then(response => {
     console.log(response.data);
     router.push({name: 'LoginView'})
@@ -44,7 +42,7 @@ function logout() {
   border-radius: 6px 6px 0 0;
 }
 .popup-button-delete{
-  background-color: #ff392e;
+  background-color: #E3505E;
   color: white;
   border: none;
   padding: 5px 10px;

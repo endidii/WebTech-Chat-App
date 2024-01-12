@@ -28,15 +28,18 @@
       <AddChannelButton v-if="user" :user-data="user" @channelAdded="updateUserInfo"></AddChannelButton>
     </div>
 
-    <div class="channel-description">
-      <p class="channel-name"> <span v-if="!isInputDisabled" class="hashtag">#</span> {{channelName}}</p>
+    <div class="channel-description" >
+    </div>
+    <div v-if="!isInputDisabled"  class="channel-description">
+      <p  class="channel-name"> <span class="hashtag">#</span> {{channelName}} </p>
+      <button class="leave-button" @click="leaveChannel">verlassen</button>
     </div>
 
     <div class="memberlist-div">
 
       <p id="memberlist-tag">Mitgliederliste</p>
 
-      <member :activeChannelId="activeChannelId"></member>
+      <member :activeChannelId="activeChannelId" :show="showMemberList"></member>
 
         <UserPopup :userId="userId" :visible="showPopup" @update:visible="showPopup = $event" />
         <button class="logged-in-button" @click="togglePopup" >
@@ -53,6 +56,7 @@
     </div>
 
     <MessageHistory
+      :show="showMessageHistory"
       :isInputDisabled="isInputDisabled"
       :userData="user"
       :active-channel-id="activeChannelId"></MessageHistory>
@@ -102,6 +106,8 @@ const isInputDisabled = ref(true);
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 const userKey = ref(0);
 const channelNameInput = ref("");
+const showMemberList = ref(true);
+const showMessageHistory = ref(true);
 
 watch(user, () => {
   userKey.value++;
@@ -131,12 +137,28 @@ function updateUserInfo(userOutput:User){
       user.value = response.data;
     })
 }
+function leaveChannel(){
+  axios
+    .delete(`${baseUrl}/channels/` + activeChannelId.value + "/users/" + userId.value)
+    .then(() => {
+      console.log("user removed from channel")
+      updateUserInfo(user.value)
+      channelName.value = "";
+      activeChannelId.value = undefined;
+      isInputDisabled.value = true;
+      showMemberList.value = false;
+      showMessageHistory.value = false;
+      console.log("disableInput")
+    })
+}
 
 function onChannelButtonClicked(channel: Channel) {
   console.log("channel-button clicked, id: " + channel.id)
   channelName.value = channel.name;
   activeChannelId.value = channel.id;
   isInputDisabled.value = false;
+  showMemberList.value = true;
+  showMessageHistory.value = true;
   console.log("enableInput")
 }
 function addUserToChannel(channelName:string){
@@ -147,7 +169,6 @@ function addUserToChannel(channelName:string){
       updateUserInfo(user.value)
       channelNameInput.value = "";
     })
-
 }
 </script>
 

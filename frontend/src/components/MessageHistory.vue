@@ -1,5 +1,5 @@
 <template>
-  <div class="container-div">
+  <div v-if="show" class="container-div">
     <div class="message-history-div">
       <div class="message-div" v-for="message in messages.values()" :key="message.id">
         <img class="user-img" src="../assets/cat1.jpeg" alt="user-img" />
@@ -41,7 +41,8 @@ type User = {
 const props = defineProps({
   activeChannelId: String,
   userData: Object,
-  isInputDisabled: Boolean
+  isInputDisabled: Boolean,
+  show: Boolean
 })
 let messages: Ref<Message[]> = ref([]);
 let message_content = ref("");

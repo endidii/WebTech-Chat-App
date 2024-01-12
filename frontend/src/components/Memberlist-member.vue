@@ -1,5 +1,5 @@
 <template>
-  <div class="member" v-for="user in users.values()" :key="user.id">
+  <div v-if="show" class="member" v-for="user in users.values()" :key="user.id">
     <img class="user-img" src="../assets/cat1.jpeg" alt="user-img" />
     <p :class="['username', { 'creator-name': user.id === creatorId }]">{{user.username}}</p>
   </div>
@@ -15,7 +15,8 @@ type User = {
 }
 
 const props = defineProps({
-  activeChannelId: String
+  activeChannelId: String,
+  show: Boolean
 })
 let users: Ref<User[]> = ref([]);
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;

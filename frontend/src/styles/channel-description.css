@@ -17,19 +17,18 @@
     height: 28px;
     margin: 10px 6px 10px 20px;
 }
-.leave-button span {
-    color: white;
-    font-size: 20px;
-    font-family: 'Poppins', sans-serif;
-    margin-left: 12px;
-}
 .leave-button{
     display: flex;
     margin-right: 30px;
-    border-radius: 4px;
+    margin-left: 12px;
+    border-radius: 2px;
     background-color: #E3505E;
-    align-items: center;
-    border: none;
+    border-color: #E3505E;
+    border-style: solid;
+    color: white;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    padding: 5px 14px 5px 14px;
 }
 .leave-button:hover{
     cursor: pointer;

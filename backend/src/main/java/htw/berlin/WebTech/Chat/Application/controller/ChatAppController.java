@@ -137,7 +137,7 @@ public class ChatAppController {
     @DeleteMapping("/channels/{channelId}/users/{userId}")
     public ResponseEntity<?> removeUserFromChannel(@PathVariable("channelId") String channelId, @PathVariable("userId") String userId) {
         textchannelService.removeUserFromTextchannel(userId, channelId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("User with id " + userId + " has been removed from textchannel with id " + channelId + ".");
     }
     @DeleteMapping("/textchannels/delete-all-messages")
     public ResponseEntity<?> deleteAllMessagesFromTextchannels() {
