@@ -2,9 +2,13 @@ package htw.berlin.WebTech.Chat.Application.service;
 
 import htw.berlin.WebTech.Chat.Application.exception.InvalidPasswordException;
 import htw.berlin.WebTech.Chat.Application.exception.UserNotFoundException;
+import htw.berlin.WebTech.Chat.Application.model.Message;
 import htw.berlin.WebTech.Chat.Application.model.Textchannel;
 import htw.berlin.WebTech.Chat.Application.model.User;
+import htw.berlin.WebTech.Chat.Application.repository.MessageRepository;
+import htw.berlin.WebTech.Chat.Application.repository.TextchannelRepository;
 import htw.berlin.WebTech.Chat.Application.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final MessageRepository messageRepository;
+    private final TextchannelRepository textchannelRepository;
+    private final TextchannelService textchannelService;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public User createUser(String username, String email, String password){
@@ -63,4 +70,24 @@ public class UserService {
     public void deleteAllUsers() {
         userRepository.deleteAll();
     }
+
+    @Transactional
+    public void deleteUserByEmail(String email){
+        User foundUser = getUserByEmail(email);
+        if (foundUser == null) {
+            throw new UserNotFoundException("User with email " + email + " does not exist.");
+        }
+        for (Message message : foundUser.getMessages()) {
+            textchannelRepository.findTextchannelsByUsersId(foundUser.getId()).forEach(textchannel -> {
+                textchannel.getMessages().remove(message);
+                textchannelRepository.save(textchannel);
+            });
+        }
+        textchannelRepository.findTextchannelsByUsersId(foundUser.getId()).forEach(textchannel -> {
+            textchannel.getUsers().remove(foundUser);
+            textchannelRepository.save(textchannel);
+        });
+        userRepository.deleteUserByEmail(email);
+    }
+
 }

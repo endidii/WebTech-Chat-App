@@ -158,5 +158,16 @@ public class ChatAppController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
+    @DeleteMapping("/users/email")
+    public ResponseEntity<?> deleteUserByEmail(@RequestParam("email") String email) {
+        User foundUser = userService.getUserByEmail(email);
+        if (foundUser == null) {
+            // User not found, return 404 Not Found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        // User found, return 200 OK with the user data
+        userService.deleteUserByEmail(email);
+        return ResponseEntity.ok(foundUser);
+    }
 
 }

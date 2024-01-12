@@ -25,10 +25,10 @@ public class Textchannel {
     @NotNull
     private String description;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<User> users;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Message> messages;
 
     public String getId() {

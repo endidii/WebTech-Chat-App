@@ -32,13 +32,13 @@ public class User {
     @NotNull
     private String password;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Message> messages;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Textchannel> textchannels;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Directchannel> directchannels;
 
     public String getId() {
