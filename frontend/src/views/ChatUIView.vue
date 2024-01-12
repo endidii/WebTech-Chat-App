@@ -23,18 +23,6 @@
         :user-data="user">
       </TextchannelButton>
 
-      <p class="side-tags">Direktnachrichten</p>
-
-      <button id="button1" class="chat-button">
-        <img class="user-img" src="../assets/cat2.png" alt="image" />
-        <span class="username">Tony (ereshkigal)</span>
-      </button>
-
-      <button class="chat-button">
-        <img class="user-img" src="../assets/image1.png" alt="image" />
-        <span class="username">Tony (2ny)</span>
-      </button>
-
       <AddDirectchannelButton v-if="user" :user-data="user"></AddDirectchannelButton>
 
       <AddChannelButton v-if="user" :user-data="user" @channelAdded="updateUserInfo"></AddChannelButton>
@@ -45,16 +33,23 @@
     </div>
 
     <div class="memberlist-div">
+
       <p id="memberlist-tag">Mitgliederliste</p>
+
       <member :activeChannelId="activeChannelId"></member>
-      <div class="logged-in-div">
-        <img src="../assets/cat1.jpeg" alt="user-img" />
-        <div class="user-info-div">
-          <p id="angemeldet-als">Angemeldet als:</p>
-          <p v-if="user" id="username-p">{{ user.username }}</p>
-          <p v-if="user" id="userId-p">ID: {{ user.id }}</p>
-        </div>
-      </div>
+
+        <UserPopup :visible="showPopup" @update:visible="showPopup = $event" />
+        <button class="logged-in-button" @click="togglePopup" >
+          <div class="logged-in-div">
+            <img src="../assets/cat1.jpeg" alt="user-img" />
+            <div class="user-info-div">
+              <p id="angemeldet-als">Angemeldet als:</p>
+              <p v-if="user" id="username-p">{{ user.username }}</p>
+              <p v-if="user" id="userId-p">ID: {{ user.id }}</p>
+            </div>
+          </div>
+        </button>
+
     </div>
 
     <MessageHistory
@@ -74,6 +69,7 @@ import '../components/Textchannel-button.vue'
 import TextchannelButton from '@/components/Textchannel-button.vue'
 import AddChannelButton from '@/components/Add-Textchannel-button.vue'
 import AddDirectchannelButton from "@/components/Add-Directchannel-button.vue";
+import UserPopup from "@/components/UserPopup.vue";
 import member from '@/components/Memberlist-member.vue'
 import { onMounted, ref, watch } from "vue";
 import { useRoute } from 'vue-router';
@@ -121,6 +117,11 @@ onMounted(() => {
       user.value = response.data;
     })
 })
+const showPopup = ref(false);
+
+function togglePopup() {
+  showPopup.value = !showPopup.value;
+}
 function updateUserInfo(userOutput:User){
   axios
     .get(`${baseUrl}/users/` + userOutput.id)
