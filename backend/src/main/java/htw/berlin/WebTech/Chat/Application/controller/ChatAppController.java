@@ -169,4 +169,16 @@ public class ChatAppController {
         userService.deleteUserByEmail(email);
         return ResponseEntity.ok("User with email " + email + " has been deleted.");
     }
+
+    @DeleteMapping("/channels/name")
+    public ResponseEntity<?> deleteTextchannelByName(@RequestParam("name") String name) {
+        Textchannel foundTextchannel = textchannelService.getTextchannelByName(name);
+        if (foundTextchannel == null) {
+            // Textchannel not found, return 404 Not Found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        // Textchannel found, return 200 OK with the textchannel data
+        textchannelService.deleteTextchannelByName(name);
+        return ResponseEntity.ok("Textchannel with name " + name + " has been deleted.");
+    }
 }

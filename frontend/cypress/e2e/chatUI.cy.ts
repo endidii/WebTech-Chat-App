@@ -1,3 +1,5 @@
+import axios from "axios";
+
 describe('create textchannel', () => {
   it('creates a textchannel', () => {
     cy.viewport(1920, 1080)
@@ -13,7 +15,11 @@ describe('create textchannel', () => {
 
     cy.get('.channel-button').should("exist").should("contain.text", "testchannel2");
 
-    cy.get(':nth-child(7) > .chat-tag').click();
+    cy.get('.channel-button').click();
     cy.get('.member').should("exist").should("contain.text", "max");
+
+    axios.delete("http://localhost:8080/channels/name", { params: {
+        name: "testchannel2"
+      }})
   })
 });

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -90,6 +91,28 @@ public class TextchannelService {
     }
     public void deleteAllTextchannels() {
         textchannelRepository.deleteAll();
+    }
+
+    public void deleteTextchannelByName(String name) {
+        Textchannel textchannel = textchannelRepository.findTextchannelByName(name.replace(" ", "-"));
+        textchannel.getUsers().forEach(user -> {
+            Iterator<Message> iterator = user.getMessages().iterator();
+            while (iterator.hasNext()) {
+                Message message = iterator.next();
+                if (message.getTextchannel().getId().equals(textchannel.getId())) {
+                    iterator.remove();
+                }
+            }
+        });
+        textchannel.getUsers().forEach(user -> user.getTextchannels().remove(textchannel));
+        if(!textchannel.getMessages().isEmpty()){
+            for (int i = textchannel.getMessages().size() - 1; i >= 0; i--) {
+                String messageId = textchannel.getMessages().get(i).getId();
+                textchannel.getMessages().remove(i);
+                messageRepository.deleteById(messageId);
+            }
+        }
+        textchannelRepository.delete(textchannel);
     }
 
 
