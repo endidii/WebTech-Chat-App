@@ -30,6 +30,7 @@ public class TextchannelService {
         textchannel.setId(UUID.randomUUID().toString().substring(0,5));
         textchannel.setName(name.replace(" ", "-"));
         textchannel.setDescription(description);
+        textchannel.setCreatorId(userId);
         User user = userRepository.findUserById(userId);
         user.getTextchannels().add(textchannel);
         return textchannelRepository.save(textchannel);
