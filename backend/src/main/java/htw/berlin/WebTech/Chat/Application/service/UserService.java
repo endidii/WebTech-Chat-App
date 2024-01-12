@@ -89,5 +89,23 @@ public class UserService {
         });
         userRepository.deleteUserByEmail(email);
     }
+    @Transactional
+    public void deleteUserById(String userId){
+        User foundUser = getUserById(userId);
+        if (foundUser == null) {
+            throw new UserNotFoundException("User with id " + userId + " does not exist.");
+        }
+        for (Message message : foundUser.getMessages()) {
+            textchannelRepository.findTextchannelsByUsersId(foundUser.getId()).forEach(textchannel -> {
+                textchannel.getMessages().remove(message);
+                textchannelRepository.save(textchannel);
+            });
+        }
+        textchannelRepository.findTextchannelsByUsersId(foundUser.getId()).forEach(textchannel -> {
+            textchannel.getUsers().remove(foundUser);
+            textchannelRepository.save(textchannel);
+        });
+        userRepository.deleteUserById(userId);
+    }
 
 }

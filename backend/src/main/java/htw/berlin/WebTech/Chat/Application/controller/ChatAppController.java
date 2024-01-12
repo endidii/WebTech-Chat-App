@@ -169,6 +169,17 @@ public class ChatAppController {
         userService.deleteUserByEmail(email);
         return ResponseEntity.ok("User with email " + email + " has been deleted.");
     }
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<?> deleteUserById(@PathVariable("userId") String userId) {
+        User foundUser = userService.getUserById(userId);
+        if (foundUser == null) {
+            // User not found, return 404 Not Found
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        // User found, return 200 OK with the user data
+        userService.deleteUserById(userId);
+        return ResponseEntity.ok("User with id " + userId + " has been deleted.");
+    }
 
     @DeleteMapping("/channels/name")
     public ResponseEntity<?> deleteTextchannelByName(@RequestParam("name") String name) {
