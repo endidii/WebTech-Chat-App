@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import {nextTick, onMounted, type PropType, ref, type Ref, watch} from "vue";
+import {nextTick, onMounted, ref, type Ref, watch} from "vue";
 import axios from "axios";
 import SockJS from 'sockjs-client';
 import Stomp from 'webstomp-client';
