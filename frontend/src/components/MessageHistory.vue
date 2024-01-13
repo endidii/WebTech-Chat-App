@@ -1,7 +1,7 @@
 <template>
   <div v-if="show" class="container-div">
     <div class="message-history-div">
-      <div class="message-div" v-for="message in messages.values()" :key="message.id">
+      <div class="message-div" v-for="message in messages" :key="message.id">
         <img class="user-img" src="../assets/cat1.jpeg" alt="user-img" />
         <div class="message-info-div">
           <div class="user-date-div">
@@ -33,14 +33,9 @@ import { onBeforeUnmount } from 'vue';
 type Message = {
   id: string;
   content: string;
-  date: [];
-  sender: User;
-}
-
-type User = {
-  id: string;
-  username: string;
-}
+  date: string;
+  sender: string;
+};
 
 const props = defineProps({
   activeChannelId: String,
@@ -73,6 +68,10 @@ const connectWebSocket = (): void => {
   );
 };
 
+function getRandomInt(max:number) {
+  return Math.floor(Math.random() * max);
+}
+
 const subscribeToChannel = (channelId: string): void => {
   if (!stompClient || !channelId) return;
 
@@ -85,7 +84,25 @@ const subscribeToChannel = (channelId: string): void => {
   const topic = "/topic/channel/"+channelId;
   currentSubscription = stompClient.subscribe(topic, (message: Frame) => {
     const newMessage: Message = JSON.parse(message.body);
-    messages.value.push(newMessage);
+    if (newMessage && newMessage.date && newMessage.content && newMessage.sender) {
+      let addMessage : Message;
+      addMessage = {
+        id: getRandomInt(100000).toString(),
+        content: newMessage.content,
+        date: newMessage.date,
+        sender: newMessage.sender
+      }
+      console.log(addMessage);
+      messages.value.push(addMessage);
+      nextTick(() => {
+        const messageHistoryDiv = document.querySelector('.message-history-div');
+        if (messageHistoryDiv) {
+          messageHistoryDiv.scrollTop = messageHistoryDiv.scrollHeight;
+        }
+      });
+    } else {
+      console.error("Received message does not match 'Message' structure:", newMessage);
+    }
   });
 };
 defineExpose({ subscribeToChannel, connectWebSocket });
@@ -103,8 +120,8 @@ async function postMessage(messageContent: string) {
     });
     // If the message is saved successfully, send it over the WebSocket
     const savedMessage = response.data; // Adjust this based on the actual response structure
-    stompClient?.send(`/app/channel/${props.activeChannelId}`, JSON.stringify(savedMessage), {});
-    if(props.activeChannelId) fetchMessages(props.activeChannelId);
+    console.log(savedMessage);
+    stompClient?.send("/app/chat.sendMessage/"+props.activeChannelId, JSON.stringify(savedMessage), {});
     // Clear the input field
     message_content.value = "";
   } catch (error) {
