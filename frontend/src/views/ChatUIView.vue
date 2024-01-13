@@ -6,14 +6,15 @@
         <p class="app-name">blendr<span id="underscore">_</span></p>
       </div>
 
+      <p class="side-tags">Channel beitreten</p>
       <input v-on:keyup.enter="addUserToChannel(channelNameInput)"
              v-model="channelNameInput"
              type="text" class="search-bar"
-             placeholder="Textkanal Beitreten" />
+             placeholder="Textkanal suchen" />
 
       <img id="search-icon" src="../assets/search.png" alt="search-icon" />
 
-      <p class="side-tags">Textkanäle</p>
+      <p class="side-tags">Textchannels</p>
 
       <TextchannelButton
         :key="userKey"

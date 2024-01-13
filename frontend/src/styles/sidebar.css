@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     margin-left: 26px;
-    margin-bottom: 3px;
+    margin-bottom: 0px;
     margin-top: 6px;
 }
 .sidebar-div{
@@ -39,7 +39,7 @@
     border: none;
     margin-left: 14px;
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
     color: white;
     font-size: 16px;
     padding-left: 50px;
@@ -51,7 +51,7 @@
     width: 20px;
     border-radius: 4px;
     object-fit: cover;
-    top: 143px;
+    top: 204px;
     left: 26px;
 }
 .side-tags{
@@ -59,7 +59,7 @@
     font-weight: bold;
     font-size: 24px;
     margin-left: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 .channel-div{
