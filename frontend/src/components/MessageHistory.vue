@@ -107,6 +107,19 @@ const subscribeToChannel = (channelId: string): void => {
 };
 defineExpose({ subscribeToChannel, connectWebSocket });
 
+function getCurrentDateTime(): string {
+  const now = new Date();
+
+  const day = now.getDate().toString().padStart(2, '0');
+  const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-indexed
+  const year = now.getFullYear();
+
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+
+  return `${day}.${month}.${year} ${hours}:${minutes}`;
+}
+
 async function postMessage(messageContent: string) {
   if (messageContent.trim() === '') {
     alert('Bitte gebe eine Nachricht ein!');
@@ -114,16 +127,14 @@ async function postMessage(messageContent: string) {
   }
 
   try {
-    // Save the message to the database via API call
-    const response = await axios.post(`${baseUrl}/channels/${props.activeChannelId}/users/${props.userData?.id}/messages`, {
-      content: messageContent
-    });
-    // If the message is saved successfully, send it over the WebSocket
-    const savedMessage = response.data; // Adjust this based on the actual response structure
+    const savedMessage = {"content":messageContent,"date":getCurrentDateTime(),"sender":props.userData?.username};
     console.log(savedMessage);
     stompClient?.send("/app/chat.sendMessage/"+props.activeChannelId, JSON.stringify(savedMessage), {});
     // Clear the input field
     message_content.value = "";
+    await axios.post(`${baseUrl}/channels/${props.activeChannelId}/users/${props.userData?.id}/messages`, {
+      content: messageContent
+    });
   } catch (error) {
     console.error('Error posting message:', error);
     // Optionally, handle the error (e.g., notify the user)
