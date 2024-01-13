@@ -1,5 +1,6 @@
 package htw.berlin.WebTech.Chat.Application.controller;
 
+import htw.berlin.WebTech.Chat.Application.dto.ChatMessage;
 import htw.berlin.WebTech.Chat.Application.model.Directchannel;
 import htw.berlin.WebTech.Chat.Application.model.Message;
 import htw.berlin.WebTech.Chat.Application.model.Textchannel;
@@ -78,11 +79,17 @@ public class ChatAppController {
 
     //add message to channel
     @PostMapping("/channels/{channelId}/users/{userId}/messages")
-    public void addMessageToChannel(@RequestBody Message message_input,
+    public ResponseEntity<?> addMessageToChannel(@RequestBody Message message_input,
                                     @PathVariable("channelId") String channelId,
                                     @PathVariable("userId") String userId){
         Message message = messageService.createMessage(userId,channelId,message_input.getContent());
         textchannelService.addMessageToTextchannel(message, channelId);
+
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.setContent(message.getContent());
+        chatMessage.setSender(message.getSender().getUsername());
+        chatMessage.setDate(message.getDate());
+        return ResponseEntity.ok(chatMessage);
     }
 
     //get messages by channelId and userId

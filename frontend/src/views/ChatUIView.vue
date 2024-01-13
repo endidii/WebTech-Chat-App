@@ -59,7 +59,8 @@
       :show="showMessageHistory"
       :isInputDisabled="isInputDisabled"
       :userData="user"
-      :active-channel-id="activeChannelId"></MessageHistory>
+      :active-channel-id="activeChannelId"
+      ref="messageHistory"></MessageHistory>
   </div>
 
 </template>
@@ -108,7 +109,7 @@ const userKey = ref(0);
 const channelNameInput = ref("");
 const showMemberList = ref(true);
 const showMessageHistory = ref(true);
-
+const messageHistory = ref<any>(null);
 watch(user, () => {
   userKey.value++;
 }, { deep: true });
@@ -151,7 +152,6 @@ function leaveChannel(){
       console.log("disableInput")
     })
 }
-
 function onChannelButtonClicked(channel: Channel) {
   console.log("channel-button clicked, id: " + channel.id)
   channelName.value = channel.name;

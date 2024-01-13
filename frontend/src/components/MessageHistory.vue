@@ -23,8 +23,12 @@
 </template>
 
 <script setup lang="ts">
-import {nextTick, onMounted, ref, type Ref, watch} from "vue";
+import {nextTick, onMounted, type PropType, ref, type Ref, watch} from "vue";
 import axios from "axios";
+import SockJS from 'sockjs-client';
+import Stomp from 'webstomp-client';
+import type { Client, Frame } from 'webstomp-client';
+import { onBeforeUnmount } from 'vue';
 
 type Message = {
   id: string;
@@ -46,20 +50,67 @@ const props = defineProps({
 })
 let messages: Ref<Message[]> = ref([]);
 let message_content = ref("");
+let stompClient: Client | null = null;
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+let currentSubscription: any | null = null;
 
-async function postMessage(message: string) {
-  if (message.trim() === '') {
+const connectWebSocket = (): void => {
+  const sock = new SockJS(`${baseUrl}/ws`);
+  stompClient = Stomp.over(sock);
+
+  // Note: Pass an empty object for headers if you don't have any headers to pass.
+  // The connectCallback and errorCallback are passed according to the expected signature.
+  stompClient.connect(
+      {}, // Headers
+      (frame: Frame | undefined) => {
+        // Connection success callback
+        console.log('Connected:', frame);
+      },
+      (error: Frame | CloseEvent) => {
+        // Connection error callback
+        console.error('Connection error:', error);
+      }
+  );
+};
+
+const subscribeToChannel = (channelId: string): void => {
+  if (!stompClient || !channelId) return;
+
+  // Unsubscribe from the previous subscription if it exists
+  if (currentSubscription) {
+    currentSubscription.unsubscribe();
+    currentSubscription = null;
+  }
+
+  const topic = "/topic/channel/"+channelId;
+  currentSubscription = stompClient.subscribe(topic, (message: Frame) => {
+    const newMessage: Message = JSON.parse(message.body);
+    messages.value.push(newMessage);
+  });
+};
+defineExpose({ subscribeToChannel, connectWebSocket });
+
+async function postMessage(messageContent: string) {
+  if (messageContent.trim() === '') {
     alert('Bitte gebe eine Nachricht ein!');
     return;
   }
-  await axios.post(`${baseUrl}/channels/` + props.activeChannelId + "/users/" + props.userData?.id  + "/messages",
-          {
-            content: message
-          })
-  message_content.value = "";
-  await fetchMessages(props.activeChannelId as string);
-  console.log(message);
+
+  try {
+    // Save the message to the database via API call
+    const response = await axios.post(`${baseUrl}/channels/${props.activeChannelId}/users/${props.userData?.id}/messages`, {
+      content: messageContent
+    });
+    // If the message is saved successfully, send it over the WebSocket
+    const savedMessage = response.data; // Adjust this based on the actual response structure
+    stompClient?.send(`/app/channel/${props.activeChannelId}`, JSON.stringify(savedMessage), {});
+    if(props.activeChannelId) fetchMessages(props.activeChannelId);
+    // Clear the input field
+    message_content.value = "";
+  } catch (error) {
+    console.error('Error posting message:', error);
+    // Optionally, handle the error (e.g., notify the user)
+  }
 }
 
 async function fetchMessages(channelId: string) {
@@ -102,15 +153,33 @@ async function fetchMessages(channelId: string) {
 }
 
 
-watch(() => props.activeChannelId, (newChannelId) => {
+watch(() => props.activeChannelId, (newChannelId, oldChannelId) => {
   if (newChannelId) {
     fetchMessages(newChannelId);
+    // If there is an old subscription, unsubscribe first
+    if (oldChannelId && currentSubscription) {
+      currentSubscription.unsubscribe();
+      currentSubscription = null;
+    }
+    // Then subscribe to the new channel
+    subscribeToChannel(newChannelId);
   }
-});
+}, { immediate: true });
 
 onMounted(() => {
   if (props.activeChannelId) {
     fetchMessages(props.activeChannelId);
+  }
+  connectWebSocket();
+});
+onBeforeUnmount(() => {
+  if (currentSubscription) {
+    currentSubscription.unsubscribe();
+  }
+  if (stompClient && stompClient.connected) {
+    stompClient.disconnect(() => {
+      console.log('Disconnected from WebSocket');
+    });
   }
 });
 
