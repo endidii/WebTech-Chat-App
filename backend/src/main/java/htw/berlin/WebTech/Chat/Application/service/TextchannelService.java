@@ -112,6 +112,7 @@ public class TextchannelService {
                 messageRepository.deleteById(messageId);
             }
         }
+        textchannel.getUsers().clear();
         textchannelRepository.delete(textchannel);
     }
 
