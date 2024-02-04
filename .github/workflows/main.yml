@@ -38,4 +38,5 @@ jobs:
         with:
           node-version: '21' # or the version you use
       - run: npm install
-      - run: npm test # or your test script
+      - run: npm run dev
+      - run: npx cypress run
