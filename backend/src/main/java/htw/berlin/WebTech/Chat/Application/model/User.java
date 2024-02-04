@@ -32,10 +32,10 @@ public class User {
     @NotNull
     private String password;
 
-    @OneToMany()
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Message> messages;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Textchannel> textchannels;
 
     @ManyToMany()

@@ -57,7 +57,15 @@ public class TextchannelService {
     }
 
     public List<User> getUsersOfTextChannel(String textChannelId) {
-        return textchannelRepository.findUsersByChannelId(textChannelId);
+        Textchannel textchannel = textchannelRepository.findTextchannelById(textChannelId);
+        List<User> users = new ArrayList<>();
+        for (User user : textchannel.getUsers()) {
+            user.setMessages(null);
+            user.setTextchannels(null);
+            user.setDirectchannels(null);
+            users.add(user);
+        }
+        return textchannel.getUsers();
     }
     public Textchannel getTextchannelById(String textChannelId) {
         return textchannelRepository.findTextchannelById(textChannelId);

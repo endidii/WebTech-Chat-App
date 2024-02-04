@@ -1,5 +1,7 @@
 package htw.berlin.WebTech.Chat.Application.service;
 
+import htw.berlin.WebTech.Chat.Application.dto.MessageDTO;
+import htw.berlin.WebTech.Chat.Application.dto.UserDTO;
 import htw.berlin.WebTech.Chat.Application.model.Message;
 import htw.berlin.WebTech.Chat.Application.model.Textchannel;
 import htw.berlin.WebTech.Chat.Application.model.User;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,8 +46,19 @@ public class MessageService {
         return messageRepository.findMessagesByTextchannelIdAndSenderId(textchannelId, userId);
     }
 
-    public List<Message> getMessagesByTextchannel(String channelId){
-        return messageRepository.findMessagesByTextchannelId(channelId);
+    public List<MessageDTO> getMessagesByTextchannel(String channelId){
+        Textchannel textchannel = textchannelRepository.findTextchannelById(channelId);
+        List<MessageDTO> messageDTOs = new ArrayList<>();
+        for (Message message : textchannel.getMessages()) {
+            MessageDTO dto = new MessageDTO();
+            UserDTO senderDTO = new UserDTO();
+            senderDTO.setUsername(message.getSender().getUsername());
+            dto.setSender(senderDTO);
+            dto.setContent(message.getContent());
+            dto.setDate(message.getDate());
+            messageDTOs.add(dto);
+        }
+        return messageDTOs;
     }
 
     public void deleteAllMessages() {

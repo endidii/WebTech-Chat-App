@@ -1,6 +1,7 @@
 package htw.berlin.WebTech.Chat.Application.controller;
 
 import htw.berlin.WebTech.Chat.Application.dto.ChatMessage;
+import htw.berlin.WebTech.Chat.Application.dto.MessageDTO;
 import htw.berlin.WebTech.Chat.Application.model.Directchannel;
 import htw.berlin.WebTech.Chat.Application.model.Message;
 import htw.berlin.WebTech.Chat.Application.model.Textchannel;
@@ -101,7 +102,7 @@ public class ChatAppController {
 
     //get all messages from a channel
     @GetMapping("/channels/{channelId}/messages")
-    public List<Message> getMessagesByChannelId(@PathVariable("channelId") String channelId){
+    public List<MessageDTO> getMessagesByChannelId(@PathVariable("channelId") String channelId){
         return messageService.getMessagesByTextchannel(channelId);
     }
     //get all channels by UserId

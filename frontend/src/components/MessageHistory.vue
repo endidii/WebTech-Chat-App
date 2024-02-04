@@ -5,7 +5,7 @@
         <img class="user-img" src="../assets/cat1.jpeg" alt="user-img" />
         <div class="message-info-div">
           <div class="user-date-div">
-            <p class="sender">{{message.sender}}</p>
+            <p class="sender">{{message.sender.username}}</p>
             <p class="created_at">{{message.date}}</p>
           </div>
           <p class="content">{{message.content}}</p>
@@ -34,7 +34,12 @@ type Message = {
   id: string;
   content: string;
   date: string;
-  sender: string;
+  sender: Sender;
+};
+
+type Sender = {
+  id: string;
+  username: string;
 };
 
 const props = defineProps({
@@ -144,30 +149,7 @@ async function postMessage(messageContent: string) {
 async function fetchMessages(channelId: string) {
   try {
     const response = await axios.get(`${baseUrl}/channels/${channelId}/messages`);
-
-    // Create a new array to store the updated messages
-    const updatedMessages = [];
-
-    for (const message of response.data) {
-      // Skip if the item is not an object
-      if (typeof message !== 'object') continue;
-
-      try {
-        // Fetch user data for each message
-        const userResponse = await axios.get(`${baseUrl}/users/${message.sender}`);
-        const username = userResponse.data.username;
-
-        // Replace sender ID with username
-        updatedMessages.push({ ...message, sender: username });
-      } catch (userError) {
-        console.error('Error fetching user data:', userError);
-        // Push the original message if there's an error fetching user data
-        updatedMessages.push(message);
-      }
-    }
-
-    // Update messages with the new array containing usernames
-    messages.value = updatedMessages;
+    messages.value = response.data;
   } catch (error) {
     console.error('Error fetching messages:', error);
   }
