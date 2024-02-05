@@ -88,14 +88,18 @@ const subscribeToChannel = (channelId: string): void => {
 
   const topic = "/topic/channel/"+channelId;
   currentSubscription = stompClient.subscribe(topic, (message: Frame) => {
-    const newMessage: Message = JSON.parse(message.body);
+    const newMessage = JSON.parse(message.body);
     if (newMessage && newMessage.date && newMessage.content && newMessage.sender) {
       let addMessage : Message;
+      let senderconst : Sender = {
+        id: newMessage.sender.id,
+        username: newMessage.sender
+      }
       addMessage = {
         id: getRandomInt(100000).toString(),
         content: newMessage.content,
         date: newMessage.date,
-        sender: newMessage.sender
+        sender: senderconst
       }
       console.log(addMessage);
       messages.value.push(addMessage);
